@@ -5,6 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import com.google.android.gms.auth.api.identity.BeginSignInRequest;
+import com.google.android.gms.auth.api.identity.SignInClient;
+import com.google.android.gms.common.SignInButton;
+
 import java.util.List;
 
 import fri.werock.model.User;
@@ -22,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
         textView = findViewById(R.id.text_view);
 
-        WeRockApi weRockApi = WeRockApi.create();
+        WeRockApi weRockApi = WeRockApi.create(this);
         Call<List<User>> call = weRockApi.getUserList();
         call.enqueue(new Callback<List<User>>() {
             @Override

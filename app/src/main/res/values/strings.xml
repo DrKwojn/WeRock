@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">WeRock</string>
+    <string name="server_url">https://172.105.251.232:3000/</string>
 </resources>
