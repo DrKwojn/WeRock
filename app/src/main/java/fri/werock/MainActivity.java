@@ -5,18 +5,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
-import com.google.android.gms.auth.api.identity.BeginSignInRequest;
-import com.google.android.gms.auth.api.identity.SignInClient;
-import com.google.android.gms.common.SignInButton;
-
 import java.util.List;
 
+import fri.werock.api.WeRockApi;
 import fri.werock.model.User;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AuthenticatedActivity {
     private TextView textView;
 
     @Override
@@ -26,11 +23,16 @@ public class MainActivity extends AppCompatActivity {
 
         textView = findViewById(R.id.text_view);
 
-        WeRockApi weRockApi = WeRockApi.create(this);
-        Call<List<User>> call = weRockApi.getUserList();
+        Call<List<User>> call = this.weRockApi.getUserList();
         call.enqueue(new Callback<List<User>>() {
             @Override
             public void onResponse(Call<List<User>> call, Response<List<User>> response) {
+                int code = response.code();
+                if(code != 200) {
+                    textView.setText("CODE:" + code);
+                    return;
+                }
+
                 String text = "";
                 List<User> users = response.body();
                 for(User user : users){

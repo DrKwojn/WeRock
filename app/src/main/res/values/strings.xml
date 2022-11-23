@@ -1,4 +1,13 @@
 <resources>
     <string name="app_name">WeRock</string>
     <string name="server_url">https://172.105.251.232:3000/</string>
+
+    <string name="username">Username</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="retype_password">Retype password</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+
+    <string name="token">token</string>
 </resources>
