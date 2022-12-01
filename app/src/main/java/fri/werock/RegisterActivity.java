@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import fri.werock.api.WeRockAuthApi;
 import fri.werock.model.AuthenticationToken;
@@ -23,6 +24,8 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText editPassword;
     private EditText editRetryPassword;
 
+    private TextView testText;
+
     private Button buttonRegister;
 
     @Override
@@ -37,6 +40,8 @@ public class RegisterActivity extends AppCompatActivity {
 
         this.editPassword = this.findViewById(R.id.edit_password);
         this.editRetryPassword = this.findViewById(R.id.edit_retry_password);
+
+        //this.testText = this.findViewById(R.id.testText);
 
         this.buttonRegister = this.findViewById(R.id.register_button);
         this.buttonRegister.setOnClickListener(view -> {
@@ -54,6 +59,7 @@ public class RegisterActivity extends AppCompatActivity {
             call.enqueue(new Callback<Void>() {
                 @Override
                 public void onResponse(Call<Void> call, Response<Void> response) {
+                    testText.setText(response.toString());
                     if(response.code() != 200){
                         return;
                     }

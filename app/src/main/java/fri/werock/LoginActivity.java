@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import java.util.List;
 
@@ -27,6 +28,8 @@ public class LoginActivity extends AppCompatActivity {
     private Button buttonLogin;
     private Button buttonRegister;
 
+    private TextView testText;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,16 +42,19 @@ public class LoginActivity extends AppCompatActivity {
         this.editUsername = this.findViewById(R.id.edit_username);
         this.editPassword = this.findViewById(R.id.edit_password);
 
+        //this.testText = this.findViewById(R.id.testText);
+
         this.buttonLogin = this.findViewById(R.id.login_button);
         this.buttonLogin.setOnClickListener(view -> {
             UserAccount userAccount = new UserAccount();
-            userAccount.setUsername(this.editUsername.getText().toString());
-            userAccount.setPassword(this.editPassword.getText().toString());
+            userAccount.setUsername(this.editUsername.getText().toString().trim());
+            userAccount.setPassword(this.editPassword.getText().toString().trim());
 
             Call<AuthenticationToken> call = weRockAuthApi.login(userAccount);
             call.enqueue(new Callback<AuthenticationToken>() {
                 @Override
                 public void onResponse(Call<AuthenticationToken> call, Response<AuthenticationToken> response) {
+                    //testText.setText(response.toString());
                     if(response.code() != 200 || response.body() == null){
                         return;
                     }

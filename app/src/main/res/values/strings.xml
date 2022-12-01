@@ -10,4 +10,7 @@
     <string name="register">Register</string>
 
     <string name="token">token</string>
+    <string name="dont_have_acc">Don\'t have an account?</string>
+    <string name="log_out">Log out</string>
+    <string name="img_desc_logo">App Logo</string>
 </resources>
