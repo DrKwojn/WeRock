@@ -1,21 +1,18 @@
-package fri.werock;
+package fri.werock.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import fri.werock.api.WeRockAuthApi;
-import fri.werock.model.AuthenticationToken;
-import fri.werock.model.UserAccount;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import fri.werock.R;
+import fri.werock.api.ApiError;
+import fri.werock.api.WeRockApi;
+import fri.werock.api.WeRockApiCallback;
+import fri.werock.models.UserAccount;
 
 public class RegisterActivity extends AppCompatActivity {
     private EditText editUsername;
@@ -33,7 +30,7 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        WeRockAuthApi weRockAuthApi = WeRockAuthApi.create(this);
+        WeRockApi weRockApi = WeRockApi.create(this);
 
         this.editUsername = this.findViewById(R.id.edit_username);
         this.editEmail = this.findViewById(R.id.edit_email);
@@ -55,21 +52,20 @@ public class RegisterActivity extends AppCompatActivity {
             userAccount.setEmail(this.editEmail.getText().toString());
             userAccount.setPassword(password);
 
-            Call<Void> call = weRockAuthApi.register(userAccount);
-            call.enqueue(new Callback<Void>() {
+            WeRockApi.fetch(weRockApi.register(userAccount), new WeRockApiCallback<Void>() {
                 @Override
-                public void onResponse(Call<Void> call, Response<Void> response) {
-                    testText.setText(response.toString());
-                    if(response.code() != 200){
-                        return;
-                    }
-
+                public void onResponse(Void unused) {
                     startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                 }
 
                 @Override
-                public void onFailure(Call<Void> call, Throwable t) {
+                public void onError(ApiError error) {
+                    //TODO: Response errors
+                }
 
+                @Override
+                public void onFailure() {
+                    //TODO: Connection error
                 }
             });
         });

@@ -1,6 +1,4 @@
-package fri.werock;
-
-import androidx.appcompat.app.AppCompatActivity;
+package fri.werock.activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,8 +9,14 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import fri.werock.R;
+import fri.werock.activities.AuthenticatedActivity;
+import fri.werock.activities.LoginActivity;
+import fri.werock.api.ApiError;
 import fri.werock.api.WeRockApi;
-import fri.werock.model.User;
+import fri.werock.api.WeRockApiCallback;
+import fri.werock.models.User;
+import fri.werock.utils.UserTokenStorage;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -20,35 +24,25 @@ import retrofit2.Response;
 public class MainActivity extends AuthenticatedActivity {
     private TextView textView;
     private Button logout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         textView = findViewById(R.id.text_view);
-        logout = findViewById(R.id.log_out);
+        this.logout = findViewById(R.id.log_out);
 
-        SharedPreferences sharedPreferences = this.getSharedPreferences(this.getString(R.string.app_name), Context.MODE_PRIVATE);
+        UserTokenStorage userTokenStorage = new UserTokenStorage(MainActivity.this);
         this.logout.setOnClickListener(view -> {
-
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString("token", null);
-            editor.apply();
+            userTokenStorage.clear();
             startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-            });
+        });
 
-        Call<List<User>> call = this.weRockApi.getUserList();
-        call.enqueue(new Callback<List<User>>() {
+        WeRockApi.fetch(this.weRockApi.getUserList(), new WeRockApiCallback<List<User>>() {
             @Override
-            public void onResponse(Call<List<User>> call, Response<List<User>> response) {
-                int code = response.code();
-                if(code != 200) {
-                    textView.setText("CODE:" + code);
-                    return;
-                }
-
+            public void onResponse(List<User> users) {
                 String text = "";
-                List<User> users = response.body();
                 for(User user : users){
                     text += user.getUsername() + "\n";
                 }
@@ -57,8 +51,13 @@ public class MainActivity extends AuthenticatedActivity {
             }
 
             @Override
-            public void onFailure(Call<List<User>> call, Throwable t) {
-                textView.setText("Error:\n" + t.getMessage());
+            public void onError(ApiError error) {
+                textView.setText("Error");
+            }
+
+            @Override
+            public void onFailure() {
+                textView.setText("Failure");
             }
         });
     }

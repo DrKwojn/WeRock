@@ -1,4 +1,4 @@
-package fri.werock.model;
+package fri.werock.models;
 
 public class AuthenticationToken {
     private String accessToken;

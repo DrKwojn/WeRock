@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity"
+    tools:context=".activities.LoginActivity"
     android:background="@drawable/gradient_image">
 
     <ImageView
@@ -97,7 +97,7 @@
             android:layout_width="300dp"
             android:layout_height="50dp"
             android:layout_marginTop="40dp"
-            android:background="@drawable/custom_button"
+
             android:color="#585858"
             android:text="@string/login"
             app:layout_constraintEnd_toEndOf="parent"
@@ -110,7 +110,7 @@
             android:layout_width="300dp"
             android:layout_height="50dp"
             android:layout_marginTop="16dp"
-            android:background="@drawable/custom_button"
+
             android:color="#585858"
             android:text="@string/register"
             app:layout_constraintBottom_toBottomOf="parent"
