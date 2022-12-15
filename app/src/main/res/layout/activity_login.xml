@@ -50,7 +50,7 @@
         app:layout_constraintVertical_bias="0.0">
 
         <EditText
-            android:id="@+id/edit_password"
+            android:id="@+id/edit_username"
             android:layout_width="0dp"
             android:layout_height="60dp"
             android:layout_marginStart="24dp"
@@ -69,10 +69,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edit_username" />
+            app:layout_constraintTop_toBottomOf="@+id/edit_email" />
 
         <EditText
-            android:id="@+id/edit_username"
+            android:id="@+id/edit_email"
             android:layout_width="0dp"
             android:layout_height="60dp"
             android:layout_marginStart="24dp"
@@ -119,7 +119,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.076"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edit_username" />
+            app:layout_constraintTop_toBottomOf="@+id/edit_email" />
 
         <TextView
             android:id="@+id/passErr"
@@ -134,7 +134,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.074"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edit_password"
+            app:layout_constraintTop_toBottomOf="@+id/edit_username"
             app:layout_constraintVertical_bias="0.0" />
 
         <androidx.appcompat.widget.AppCompatButton
@@ -150,7 +150,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.493"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edit_password" />
+            app:layout_constraintTop_toBottomOf="@+id/edit_username" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/register_button"

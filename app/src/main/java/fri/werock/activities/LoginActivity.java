@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import fri.werock.R;
@@ -39,8 +38,8 @@ public class LoginActivity extends AppCompatActivity {
         UserTokenStorage userTokenStorage = new UserTokenStorage(LoginActivity.this);
         WeRockApi weRockApi = WeRockApi.create(this);
 
-        this.editUsername = this.findViewById(R.id.edit_username);
-        this.editPassword = this.findViewById(R.id.edit_password);
+        this.editUsername = this.findViewById(R.id.edit_email);
+        this.editPassword = this.findViewById(R.id.edit_username);
 
         this.usernameErr = this.findViewById(R.id.userErr);
         this.passwordErr = this.findViewById(R.id.passErr);

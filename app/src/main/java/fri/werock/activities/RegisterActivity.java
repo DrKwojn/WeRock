@@ -32,10 +32,10 @@ public class RegisterActivity extends AppCompatActivity {
 
         WeRockApi weRockApi = WeRockApi.create(this);
 
-        this.editUsername = this.findViewById(R.id.edit_username);
+        this.editUsername = this.findViewById(R.id.edit_email);
         this.editEmail = this.findViewById(R.id.edit_email);
 
-        this.editPassword = this.findViewById(R.id.edit_password);
+        this.editPassword = this.findViewById(R.id.edit_username);
         this.editRetryPassword = this.findViewById(R.id.edit_retry_password);
 
         //this.testText = this.findViewById(R.id.testText);
