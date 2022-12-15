@@ -25,8 +25,6 @@ public class LoginActivity extends AppCompatActivity {
     private TextView usernameErr;
     private TextView passwordErr;
 
-    private ImageView layers;
-
     private Button buttonLogin;
     private Button buttonRegister;
     public String user = "User";
@@ -40,9 +38,6 @@ public class LoginActivity extends AppCompatActivity {
 
         UserTokenStorage userTokenStorage = new UserTokenStorage(LoginActivity.this);
         WeRockApi weRockApi = WeRockApi.create(this);
-
-        this.layers = this.findViewById(R.id.layers);
-        this.layers.setImageResource(R.drawable.layers);
 
         this.editUsername = this.findViewById(R.id.edit_username);
         this.editPassword = this.findViewById(R.id.edit_password);
