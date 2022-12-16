@@ -107,7 +107,7 @@
             app:layout_constraintTop_toBottomOf="@+id/login_button" />
 
         <TextView
-            android:id="@+id/userErr"
+            android:id="@+id/userErr_log"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_marginStart="16dp"
@@ -115,21 +115,21 @@
             android:text=""
             android:textColor="@color/error"
             android:textSize="16sp"
-            android:visibility="invisible"
+            android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.076"
+            app:layout_constraintHorizontal_bias="0.074"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/edit_email" />
 
         <TextView
-            android:id="@+id/passErr"
+            android:id="@+id/passErr_log"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="2dp"
-            android:textSize="16sp"
             android:textColor="@color/error"
-            android:visibility="invisible"
+            android:textSize="16sp"
+            android:visibility="visible"
             app:layout_constraintBottom_toTopOf="@+id/login_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.074"

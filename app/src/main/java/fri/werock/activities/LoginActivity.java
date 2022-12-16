@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -41,8 +40,8 @@ public class LoginActivity extends AppCompatActivity {
         this.editUsername = this.findViewById(R.id.edit_email);
         this.editPassword = this.findViewById(R.id.edit_username);
 
-        this.usernameErr = this.findViewById(R.id.userErr);
-        this.passwordErr = this.findViewById(R.id.passErr);
+        this.usernameErr = this.findViewById(R.id.userErr_log);
+        this.passwordErr = this.findViewById(R.id.passErr_log);
 
 
         this.buttonLogin = this.findViewById(R.id.login_button);
@@ -62,12 +61,10 @@ public class LoginActivity extends AppCompatActivity {
                 public void onError(ApiError error) {
                     //If username not found
                     if(!userAccount.getUsername().equals(user)) {
-                        usernameErr.setVisibility(View.VISIBLE);
                         usernameErr.setText("Username not found");
                     }
 
                     if(!userAccount.getPassword().equals(password)) {
-                        passwordErr.setVisibility(View.VISIBLE);
                         passwordErr.setText("Incorrect password");
                     }
 
