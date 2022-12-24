@@ -67,6 +67,8 @@ public class LoginActivity extends AppCompatActivity {
                     //If username not found
                     if(!userAccount.getUsername().equals(user)) {
                         usernameErr.setText("Username not found");
+                    }else{
+                        usernameErr.setText("");
                     }
 
                     if(!userAccount.getPassword().equals(password)) {
