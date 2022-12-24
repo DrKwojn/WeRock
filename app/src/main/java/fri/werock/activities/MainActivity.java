@@ -36,7 +36,9 @@ public class MainActivity extends AuthenticatedActivity {
         UserTokenStorage userTokenStorage = new UserTokenStorage(MainActivity.this);
         this.logout.setOnClickListener(view -> {
             userTokenStorage.clear();
+            this.finish();
             startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+
         });
 
         WeRockApi.fetch(this.weRockApi.getUserList(), new WeRockApiCallback<List<User>>() {

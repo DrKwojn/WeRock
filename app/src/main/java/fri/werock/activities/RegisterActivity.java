@@ -2,9 +2,11 @@ package fri.werock.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -45,6 +47,21 @@ public class RegisterActivity extends AppCompatActivity {
     private static boolean matchesPattern(String pass, Pattern p) {
         Matcher matcher = p.matcher(pass);
         return matcher.matches();
+    }
+
+    void showDialog(){
+        final Dialog dialog = new Dialog(RegisterActivity.this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(true);
+        dialog.setContentView(R.layout.no_connection_dialog);
+
+        Button closeButton = dialog.findViewById(R.id.dia_close);
+
+        closeButton.setOnClickListener(view -> {
+            dialog.dismiss();
+        });
+
+        dialog.show();
     }
 
     @Override
@@ -110,6 +127,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                 @Override
                 public void onError(ApiError error) {
+                    Log.d("Err", error.toString());
                     //TODO: Response errors
                     if(userAccount.getEmail().equals(mail)){
                         emailErr.setText("E-mail already exists");
@@ -131,6 +149,7 @@ public class RegisterActivity extends AppCompatActivity {
                 @Override
                 public void onFailure() {
                     //TODO: Connection error
+                    showDialog();
                 }
             });
         });

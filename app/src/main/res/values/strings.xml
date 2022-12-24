@@ -13,4 +13,8 @@
     <string name="dont_have_acc">Don\'t have an account?</string>
     <string name="log_out">Log out</string>
     <string name="img_desc_logo">App Logo</string>
+    <string name="dia_txt1">No Internet</string>
+    <string name="dia_txt2">Please check your connection status and try again</string>
+    <string name="dialog_close">Close</string>
+
 </resources>

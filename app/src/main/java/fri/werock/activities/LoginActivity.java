@@ -2,8 +2,11 @@ package fri.werock.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -37,6 +40,7 @@ public class LoginActivity extends AppCompatActivity {
         UserTokenStorage userTokenStorage = new UserTokenStorage(LoginActivity.this);
         WeRockApi weRockApi = WeRockApi.create(this);
 
+
         this.editUsername = this.findViewById(R.id.edit_email);
         this.editPassword = this.findViewById(R.id.edit_username);
 
@@ -44,7 +48,7 @@ public class LoginActivity extends AppCompatActivity {
         this.passwordErr = this.findViewById(R.id.passErr_log);
 
 
-        this.buttonLogin = this.findViewById(R.id.login_button);
+        this.buttonLogin = this.findViewById(R.id.dia_close);
         this.buttonLogin.setOnClickListener(view -> {
             UserAccount userAccount = new UserAccount();
             userAccount.setUsername(this.editUsername.getText().toString().trim());
@@ -55,6 +59,7 @@ public class LoginActivity extends AppCompatActivity {
                 public void onResponse(AuthenticationToken authenticationToken) {
                     userTokenStorage.store(authenticationToken.getAccessToken());
                     startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    LoginActivity.this.finish();
                 }
 
                 @Override
@@ -74,6 +79,8 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
                 public void onFailure() {
                     //TODO: Connection error
+                    showDialog();
+
                 }
             });
         });
@@ -83,4 +90,19 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(new Intent(this.getApplicationContext(), RegisterActivity.class));
         });
     }
+    void showDialog(){
+        final Dialog dialog = new Dialog(LoginActivity.this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(true);
+        dialog.setContentView(R.layout.no_connection_dialog);
+
+        Button closeButton = dialog.findViewById(R.id.dia_close);
+
+        closeButton.setOnClickListener(view -> {
+            dialog.dismiss();
+        });
+
+        dialog.show();
+    }
+
 }
