@@ -10,4 +10,5 @@
     <color name="buttonColor">#5E5E5E</color>
     <color name="buttonFocused">#CBBACC</color>
     <color name="error">#CC0000</color>
+    <color name="player">#DED3F8</color>
 </resources>

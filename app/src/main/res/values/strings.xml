@@ -16,5 +16,9 @@
     <string name="dia_txt1">No Internet</string>
     <string name="dia_txt2">Please check your connection status and try again</string>
     <string name="dialog_close">Close</string>
+    <string name="myprofilebtn">My Profile</string>
+    <string name="title_activity_profile">ProfileActivity</string>
+    <string name="large_text">OK</string>
+    <string name="action_settings">Settings</string>
 
 </resources>

@@ -14,4 +14,10 @@
         <!-- Customize your theme here. -->
         <!--<item name="android:background">@drawable/gradient_image</item>-->
     </style>
+    <style name="Theme.WeRock.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+    <style name="Theme.WeRock.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="Theme.WeRock.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

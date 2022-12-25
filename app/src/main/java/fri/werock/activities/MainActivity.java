@@ -23,7 +23,8 @@ import retrofit2.Response;
 
 public class MainActivity extends AuthenticatedActivity {
     private TextView textView;
-    private Button logout;
+    private Button logout, profile;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +33,7 @@ public class MainActivity extends AuthenticatedActivity {
 
         textView = findViewById(R.id.text_view);
         this.logout = findViewById(R.id.log_out);
+        this.profile = findViewById(R.id.myprofile_button);
 
         UserTokenStorage userTokenStorage = new UserTokenStorage(MainActivity.this);
         this.logout.setOnClickListener(view -> {
@@ -40,6 +42,10 @@ public class MainActivity extends AuthenticatedActivity {
             startActivity(new Intent(getApplicationContext(), LoginActivity.class));
 
         });
+        this.profile.setOnClickListener(view -> {
+            startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+        });
+
 
         WeRockApi.fetch(this.weRockApi.getUserList(), new WeRockApiCallback<List<User>>() {
             @Override
