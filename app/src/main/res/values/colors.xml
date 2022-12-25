@@ -11,4 +11,7 @@
     <color name="buttonFocused">#CBBACC</color>
     <color name="error">#CC0000</color>
     <color name="player">#DED3F8</color>
+    <color name="seek_bar_background">#ababab</color>
+    <color name="seek_bar_progress">#7494F0</color>
+    <color name="seek_bar_secondary_progress">#3399CC</color>
 </resources>
