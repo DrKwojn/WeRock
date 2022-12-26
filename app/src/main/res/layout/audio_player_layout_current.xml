@@ -24,6 +24,7 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
+            android:scaleType="fitXY"
             android:background="@drawable/playbutton" />
 
         <Button
@@ -46,6 +47,15 @@
             android:layout_marginEnd="16dp"
             android:progressDrawable="@drawable/seek_bar"
             android:thumb="@drawable/seek_thumb" />
+
+        <TextView
+            android:id="@+id/audio_duration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="38dp"
+            android:textColor="@color/black"
+            android:layout_marginEnd="34dp" />
 
 
     </RelativeLayout>

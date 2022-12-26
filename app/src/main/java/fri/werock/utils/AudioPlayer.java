@@ -1,5 +1,6 @@
 package fri.werock.utils;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.media.MediaPlayer;
@@ -7,16 +8,18 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.SeekBar;
+import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
+
+import java.util.concurrent.TimeUnit;
 
 import fri.werock.R;
 
 public class AudioPlayer {
     private int player_id;
     private int previous_playerid;
-    View player;
     Context context;
 
     public AudioPlayer( Context ctx){
@@ -56,14 +59,19 @@ public class AudioPlayer {
         playButton.setId(View.generateViewId());
 
         playButton.setOnClickListener(view -> {
-            mediaPlayer.start();
+            play(mediaPlayer, playButton);
         });
+
+        TextView duration = player.findViewById(R.id.audio_duration);
+        duration.setId(View.generateViewId());
+        int d_len = mediaPlayer.getDuration();
+        duration.setText(formatDuration(d_len));
 
         Button delete = player.findViewById(R.id.delete_player);
 
         delete.setOnClickListener(view -> {
             player_id=player.getId();
-            showDialog(layout);
+            showDialog(mediaPlayer, layout);
         });
 
         player.setId(player_id);
@@ -88,10 +96,11 @@ public class AudioPlayer {
 
         if (mediaPlayer != null && !mediaPlayer.isPlaying()) {
             mediaPlayer.start();
-            playButton.setBackgroundResource(R.drawable.playbutton);
+            playButton.setBackgroundResource(R.drawable.pause_btn);
         } else {
-            if(mediaPlayer !=null)
-            pause(mediaPlayer,playButton);
+            if(mediaPlayer !=null){
+                pause(mediaPlayer, playButton);
+            }
         }
 
     }
@@ -99,13 +108,13 @@ public class AudioPlayer {
     private void pause(MediaPlayer mediaPlayer, Button playButton) {
         if (mediaPlayer.isPlaying()) {
             mediaPlayer.pause();
-            playButton.setBackgroundResource(R.drawable.ic_pass);
+            playButton.setBackgroundResource(R.drawable.playbutton);
 
         }
 
     }
 
-    void showDialog(ConstraintLayout layout){
+    void showDialog(MediaPlayer mediaPlayer, ConstraintLayout layout){
         final Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(true);
@@ -121,6 +130,7 @@ public class AudioPlayer {
 
         deleteButton.setOnClickListener(view -> {
             dialog.dismiss();
+            mediaPlayer.release();
             deletePlayer(layout);
         });
 
@@ -136,6 +146,14 @@ public class AudioPlayer {
         layout.removeView(layout.findViewById(player_id));
     }
 
+    @SuppressLint("DefaultLocale")
+    private String formatDuration(long duration) {
+        long minutes = TimeUnit.MINUTES.convert(duration, TimeUnit.MILLISECONDS);
+        long seconds = TimeUnit.SECONDS.convert(duration, TimeUnit.MILLISECONDS)
+                - minutes * TimeUnit.SECONDS.convert(1, TimeUnit.MINUTES);
+
+        return String.format("%02d:%02d", minutes, seconds);
+    }
 
     public int getPlayer_id() {
         return player_id;
