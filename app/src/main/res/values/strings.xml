@@ -27,5 +27,20 @@
     <string name="clip_big">Audio clip too long!</string>
     <string name="clip_dialog_txt">Max audio clip length is 1 minute.</string>
     <string name="clip_dia_txt">Please upload a shorter clip :)</string>
+    <string name="title_activity_my_profile">MyProfileActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="edit_user_txt">Edit Username:</string>
+    <string name="hint_tags">#blues, #rock</string>
+    <string name="tags_txt">Tags:</string>
+    <string name="cliphint">Tap the button to add an audio clip\nThe maximum clip length is 1 minute</string>
+    <string name="registration_txt">To get started, please register using the form below.</string>
+    <string name="reg_txt">Welcome to WeRock!</string>
 
 </resources>

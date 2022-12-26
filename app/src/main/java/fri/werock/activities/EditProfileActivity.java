@@ -16,12 +16,12 @@ import android.view.Window;
 import android.widget.Button;
 
 import fri.werock.R;
-import fri.werock.databinding.ActivityProfileBinding;
+import fri.werock.databinding.ActivityEditProfileBinding;
 import fri.werock.utils.AudioPlayer;
 
 public class EditProfileActivity extends AppCompatActivity {
 
-private ActivityProfileBinding binding;
+private ActivityEditProfileBinding binding;
 
     private Button addMedia;
     private ConstraintLayout layout;
@@ -34,10 +34,10 @@ private ActivityProfileBinding binding;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = ActivityProfileBinding.inflate(getLayoutInflater());
+        binding = ActivityEditProfileBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        addMedia = findViewById(R.id.edit_profile_b);
+        addMedia = findViewById(R.id.addMedia);
         layout = findViewById(R.id.audioContainer);
 
         Toolbar toolbar = binding.toolbar;
@@ -66,7 +66,7 @@ private ActivityProfileBinding binding;
                 MediaPlayer mediaPlayer = MediaPlayer.create(getApplicationContext(), AudioUri);
 
                 if(mediaPlayer.getDuration()<60000) {
-                    View player = getLayoutInflater().inflate(R.layout.audio_player_layout_current, null);
+                    View player = getLayoutInflater().inflate(R.layout.audio_player_layout, null);
                     audioPlayer.addPlayer(player, mediaPlayer, layout);
                 }else{
                     showDialog();

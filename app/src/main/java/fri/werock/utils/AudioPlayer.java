@@ -89,7 +89,7 @@ public class AudioPlayer {
 
         if (player_id >1) {
             set.connect(player_id, ConstraintSet.TOP,
-                    previous_playerid, ConstraintSet.BOTTOM, 8);
+                    previous_playerid, ConstraintSet.BOTTOM, 0);
         }
 
         set.applyTo(layout);
