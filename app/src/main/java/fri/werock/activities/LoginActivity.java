@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
@@ -48,7 +47,7 @@ public class LoginActivity extends AppCompatActivity {
         this.passwordErr = this.findViewById(R.id.passErr_log);
 
 
-        this.buttonLogin = this.findViewById(R.id.dia_close);
+        this.buttonLogin = this.findViewById(R.id.del_clip_no);
         this.buttonLogin.setOnClickListener(view -> {
             UserAccount userAccount = new UserAccount();
             userAccount.setUsername(this.editUsername.getText().toString().trim());
@@ -98,7 +97,7 @@ public class LoginActivity extends AppCompatActivity {
         dialog.setCancelable(true);
         dialog.setContentView(R.layout.no_connection_dialog);
 
-        Button closeButton = dialog.findViewById(R.id.dia_close);
+        Button closeButton = dialog.findViewById(R.id.del_clip_no);
 
         closeButton.setOnClickListener(view -> {
             dialog.dismiss();

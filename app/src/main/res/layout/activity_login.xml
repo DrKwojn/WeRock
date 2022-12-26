@@ -104,7 +104,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/dia_close" />
+            app:layout_constraintTop_toBottomOf="@+id/del_clip_no" />
 
         <TextView
             android:id="@+id/userErr_log"
@@ -130,7 +130,7 @@
             android:textColor="@color/error"
             android:textSize="16sp"
             android:visibility="visible"
-            app:layout_constraintBottom_toTopOf="@+id/dia_close"
+            app:layout_constraintBottom_toTopOf="@+id/del_clip_no"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.074"
             app:layout_constraintStart_toStartOf="parent"
@@ -138,7 +138,7 @@
             app:layout_constraintVertical_bias="0.0" />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/dia_close"
+            android:id="@+id/del_clip_no"
             android:layout_width="300dp"
             android:layout_height="50dp"
             android:layout_marginTop="32dp"

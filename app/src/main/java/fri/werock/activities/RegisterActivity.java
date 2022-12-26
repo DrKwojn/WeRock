@@ -11,7 +11,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -55,7 +54,7 @@ public class RegisterActivity extends AppCompatActivity {
         dialog.setCancelable(true);
         dialog.setContentView(R.layout.no_connection_dialog);
 
-        Button closeButton = dialog.findViewById(R.id.dia_close);
+        Button closeButton = dialog.findViewById(R.id.del_clip_no);
 
         closeButton.setOnClickListener(view -> {
             dialog.dismiss();
