@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.media.MediaPlayer;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -22,10 +23,12 @@ public class AudioPlayer {
     private int previous_playerid;
     Context context;
 
-    public AudioPlayer( Context ctx){
+
+    public AudioPlayer(Context ctx){
         player_id=1;
         previous_playerid=1;
         context=ctx;
+
     }
 
 
@@ -35,12 +38,22 @@ public class AudioPlayer {
         seek.setId(View.generateViewId());
         seek.setMax(mediaPlayer.getDuration());
 
+        TextView duration = player.findViewById(R.id.audio_duration);
+        duration.setId(View.generateViewId());
+
+        int d_len = mediaPlayer.getDuration();
+        duration.setText(formatDuration(d_len));
+
         seek.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 if(fromUser){
+
                     mediaPlayer.seekTo(progress);
                     seek.setProgress(progress);
+
+                    duration.setText(formatDuration(mediaPlayer.getDuration()-progress));
+
                 }
             }
 
@@ -62,16 +75,10 @@ public class AudioPlayer {
             play(mediaPlayer, playButton);
         });
 
-        TextView duration = player.findViewById(R.id.audio_duration);
-        duration.setId(View.generateViewId());
-        int d_len = mediaPlayer.getDuration();
-        duration.setText(formatDuration(d_len));
-
         Button delete = player.findViewById(R.id.delete_player);
 
         delete.setOnClickListener(view -> {
-            player_id=player.getId();
-            showDialog(mediaPlayer, layout);
+            showDialog(mediaPlayer, layout, player.getId());
         });
 
         player.setId(player_id);
@@ -114,7 +121,7 @@ public class AudioPlayer {
 
     }
 
-    void showDialog(MediaPlayer mediaPlayer, ConstraintLayout layout){
+    void showDialog(MediaPlayer mediaPlayer, ConstraintLayout layout, int del_id){
         final Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(true);
@@ -131,19 +138,14 @@ public class AudioPlayer {
         deleteButton.setOnClickListener(view -> {
             dialog.dismiss();
             mediaPlayer.release();
-            deletePlayer(layout);
+            deletePlayer(layout, del_id);
         });
 
         dialog.show();
     }
 
-    void deletePlayer(ConstraintLayout layout){
-
-        if(player_id>1) {
-            previous_playerid = player_id - 1;
-        }
-
-        layout.removeView(layout.findViewById(player_id));
+    void deletePlayer(ConstraintLayout layout, int del_id){
+        layout.removeView(layout.getViewById(del_id));
     }
 
     @SuppressLint("DefaultLocale")
@@ -155,6 +157,7 @@ public class AudioPlayer {
         return String.format("%02d:%02d", minutes, seconds);
     }
 
+
     public int getPlayer_id() {
         return player_id;
     }
@@ -162,4 +165,5 @@ public class AudioPlayer {
     public int getPrevious_playerid() {
         return previous_playerid;
     }
+
 }

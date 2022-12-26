@@ -1,8 +1,6 @@
 package fri.werock.activities;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
@@ -10,16 +8,11 @@ import android.widget.TextView;
 import java.util.List;
 
 import fri.werock.R;
-import fri.werock.activities.AuthenticatedActivity;
-import fri.werock.activities.LoginActivity;
 import fri.werock.api.ApiError;
 import fri.werock.api.WeRockApi;
 import fri.werock.api.WeRockApiCallback;
 import fri.werock.models.User;
 import fri.werock.utils.UserTokenStorage;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class MainActivity extends AuthenticatedActivity {
     private TextView textView;
@@ -43,7 +36,7 @@ public class MainActivity extends AuthenticatedActivity {
 
         });
         this.profile.setOnClickListener(view -> {
-            startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+            startActivity(new Intent(getApplicationContext(), EditProfileActivity.class));
         });
 
 

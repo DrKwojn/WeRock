@@ -24,5 +24,8 @@
     <string name="del_aud_dialog_desc">Are you sure you want to delete this clip?</string>
     <string name="del_clip_y">Yes</string>
     <string name="del_clip_no">No</string>
+    <string name="clip_big">Audio clip too long!</string>
+    <string name="clip_dialog_txt">Max audio clip length is 1 minute.</string>
+    <string name="clip_dia_txt">Please upload a shorter clip :)</string>
 
 </resources>

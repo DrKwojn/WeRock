@@ -14,7 +14,7 @@
         android:layout_marginEnd="16dp"
 
         android:background="@drawable/custom_player"
-        android:elevation="8dp">
+        android:elevation="6dp">
 
         <Button
             android:id="@+id/playAudio"
@@ -24,8 +24,8 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
-            android:scaleType="fitXY"
-            android:background="@drawable/playbutton" />
+            android:background="@drawable/playbutton"
+            android:scaleType="fitXY" />
 
         <Button
             android:id="@+id/delete_player"
@@ -54,8 +54,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_marginTop="38dp"
-            android:textColor="@color/black"
-            android:layout_marginEnd="34dp" />
+            android:layout_marginEnd="34dp"
+            android:textColor="@color/black" />
 
 
     </RelativeLayout>

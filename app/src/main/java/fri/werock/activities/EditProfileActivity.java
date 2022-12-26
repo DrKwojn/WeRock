@@ -12,26 +12,22 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 
 import fri.werock.R;
 import fri.werock.databinding.ActivityProfileBinding;
 import fri.werock.utils.AudioPlayer;
 
-public class ProfileActivity extends AppCompatActivity {
+public class EditProfileActivity extends AppCompatActivity {
 
 private ActivityProfileBinding binding;
 
     private Button addMedia;
     private ConstraintLayout layout;
 
-
     private final int PICK_AUDIO = 1;
     Uri AudioUri;
-
-
-
-
     AudioPlayer audioPlayer = new AudioPlayer(this);
 
     @Override
@@ -49,12 +45,12 @@ private ActivityProfileBinding binding;
         toolbar.setTitle("WeRock");
 
         addMedia.setOnClickListener(view -> {
-            Intent audio = new Intent();
-            audio.setType("audio/*");
-            audio.setAction(Intent.ACTION_OPEN_DOCUMENT);
-            startActivityForResult(Intent.createChooser(audio, "Select Audio"), PICK_AUDIO);
-
-
+            if(layout.getChildCount()<2) {
+                Intent audio = new Intent();
+                audio.setType("audio/*");
+                audio.setAction(Intent.ACTION_OPEN_DOCUMENT);
+                startActivityForResult(Intent.createChooser(audio, "Select Audio"), PICK_AUDIO);
+            }
         });
 
 
@@ -63,14 +59,20 @@ private ActivityProfileBinding binding;
     public void onActivityResult ( int requestCode, int resultCode, @Nullable Intent data){
 
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == PICK_AUDIO && resultCode == RESULT_OK) {
-            // Audio is Picked in format of URI
-            AudioUri = data.getData();
-            MediaPlayer mediaPlayer = MediaPlayer.create(getApplicationContext(), AudioUri);
+        if(layout.getChildCount()<2) {
+            if (requestCode == PICK_AUDIO && resultCode == RESULT_OK) {
+                // Audio is Picked in format of URI
+                AudioUri = data.getData();
+                MediaPlayer mediaPlayer = MediaPlayer.create(getApplicationContext(), AudioUri);
 
-            View player = getLayoutInflater().inflate(R.layout.audio_player_layout_current, null);
-            audioPlayer.addPlayer(player, mediaPlayer, layout);
+                if(mediaPlayer.getDuration()<60000) {
+                    View player = getLayoutInflater().inflate(R.layout.audio_player_layout_current, null);
+                    audioPlayer.addPlayer(player, mediaPlayer, layout);
+                }else{
+                    showDialog();
+                }
 
+            }
         }
 
     }
@@ -80,4 +82,19 @@ private ActivityProfileBinding binding;
         super.onBackPressed();
     }
 
+    void showDialog(){
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(true);
+        dialog.setContentView(R.layout.clip_too_big_dialog);
+
+
+        Button closeButton = dialog.findViewById(R.id.clip_dia_close);
+
+        closeButton.setOnClickListener(view -> {
+            dialog.dismiss();
+        });
+
+        dialog.show();
+    }
 }
