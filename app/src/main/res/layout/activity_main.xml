@@ -9,26 +9,29 @@
 
     <Button
         android:id="@+id/log_out"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="1dp"
-        android:text="@string/log_out"
-        app:layout_constraintBottom_toTopOf="@+id/scrollView3"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="16dp"
+        android:background="@drawable/log_out_icon"
+        app:layout_constraintBottom_toBottomOf="@+id/toolbar2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar2" />
+        app:layout_constraintTop_toTopOf="@+id/toolbar2"
+        app:layout_constraintVertical_bias="0.538" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar2"
+        app:titleMarginStart="64dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:fontFamily="@font"
         android:background="@color/white"
+        android:fontFamily="sans-serif"
         android:minHeight="?attr/actionBarSize"
         android:theme="@style/Theme.WeRock"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:title="WeRock"
@@ -38,12 +41,15 @@
         android:id="@+id/button"
         android:layout_width="26dp"
         android:layout_height="26dp"
-        android:layout_marginTop="38dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="24dp"
         android:background="@drawable/chat_icon_black"
+        app:layout_constraintBottom_toBottomOf="@+id/toolbar2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.96"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/toolbar2"
+        app:layout_constraintVertical_bias="0.142" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar3"
@@ -92,16 +98,16 @@
 
     <ScrollView
         android:id="@+id/scrollView3"
-        android:layout_width="409dp"
-        android:layout_height="620dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginStart="1dp"
-        android:layout_marginTop="1dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="1dp"
-        android:layout_marginBottom="1dp"
+        android:layout_marginBottom="32dp"
         app:layout_constraintBottom_toTopOf="@+id/toolbar3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/log_out">
+        app:layout_constraintTop_toBottomOf="@+id/toolbar2">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -110,7 +116,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="199dp">
+                android:layout_height="200dp">
 
                 <ImageView
                     android:id="@+id/img1"
@@ -141,11 +147,8 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/textView6"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_marginTop="78dp"
-                    android:background="@drawable/custom_user_desc"
+                    android:id="@+id/img1_overlay"
+                    style="@style/ExploreImgOverlay"
                     app:layout_constraintBottom_toBottomOf="@+id/img1"
                     app:layout_constraintEnd_toEndOf="@+id/img1"
                     app:layout_constraintHorizontal_bias="0.0"
@@ -153,29 +156,54 @@
                     app:layout_constraintTop_toTopOf="@+id/img1" />
 
                 <TextView
-                    android:id="@+id/textView7"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_marginBottom="64dp"
-                    android:paddingStart="8dp"
+                    android:id="@+id/img1_name"
+                    style="@style/ExploreDescName"
                     android:text="Jaden Jaden"
-                    android:textColor="@color/white"
                     app:layout_constraintBottom_toBottomOf="@+id/img1"
-                    app:layout_constraintEnd_toEndOf="@+id/textView6"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toStartOf="@+id/textView6"
-                    app:layout_constraintTop_toTopOf="@+id/textView6"
+                    app:layout_constraintEnd_toEndOf="@+id/img1_overlay"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@+id/img1_overlay"
+                    app:layout_constraintTop_toTopOf="@+id/img1_overlay"
                     app:layout_constraintVertical_bias="0.0" />
 
                 <TextView
-                    android:id="@+id/textView9"
-                    style="@style/ExploreDesc"
+                    android:id="@+id/img1_tags"
+                    style="@style/ExploreDescTags"
                     android:text="#jazz #blues"
                     app:layout_constraintBottom_toBottomOf="@+id/img1"
-                    app:layout_constraintEnd_toEndOf="@+id/textView6"
+                    app:layout_constraintEnd_toEndOf="@+id/img1_overlay"
                     app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="@+id/textView6"
-                    app:layout_constraintTop_toBottomOf="@+id/textView7"
+                    app:layout_constraintStart_toStartOf="@+id/img1_overlay"
+                    app:layout_constraintTop_toBottomOf="@+id/img1_name"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <TextView
+                    android:id="@+id/img2_overlay"
+                    style="@style/ExploreImgOverlay"
+                    app:layout_constraintBottom_toBottomOf="@+id/img2"
+                    app:layout_constraintEnd_toEndOf="@+id/img2"
+                    app:layout_constraintStart_toStartOf="@+id/img2"
+                    app:layout_constraintTop_toTopOf="@+id/img2" />
+
+                <TextView
+                    android:id="@+id/img2_name"
+                    style="@style/ExploreDescName"
+                    android:text="Blab Blab"
+                    app:layout_constraintBottom_toBottomOf="@+id/img2"
+                    app:layout_constraintEnd_toEndOf="@+id/img2_overlay"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@+id/img2_overlay"
+                    app:layout_constraintTop_toTopOf="@+id/img2_overlay" />
+
+                <TextView
+                    android:id="@+id/img2_tags"
+                    style="@style/ExploreDescTags"
+                    android:text="#yoyo #blabla"
+                    app:layout_constraintBottom_toBottomOf="@+id/img2"
+                    app:layout_constraintEnd_toEndOf="@+id/img2_overlay"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@+id/img2_overlay"
+                    app:layout_constraintTop_toBottomOf="@+id/img2_name"
                     app:layout_constraintVertical_bias="0.0" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -211,6 +239,62 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/img3"
                     app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/img3_overlay"
+                    style="@style/ExploreImgOverlay"
+                    app:layout_constraintBottom_toBottomOf="@+id/img3"
+                    app:layout_constraintEnd_toEndOf="@+id/img3"
+                    app:layout_constraintStart_toStartOf="@+id/img3"
+                    app:layout_constraintTop_toTopOf="@+id/img3" />
+
+                <TextView
+                    android:id="@+id/img3_name"
+                    style="@style/ExploreDescName"
+                    android:text="Kanye West"
+                    app:layout_constraintBottom_toBottomOf="@+id/img3"
+                    app:layout_constraintEnd_toEndOf="@+id/img3_overlay"
+                    app:layout_constraintStart_toStartOf="@+id/img3_overlay"
+                    app:layout_constraintTop_toTopOf="@+id/img3_overlay" />
+
+                <TextView
+                    android:id="@+id/img3_tags"
+                    style="@style/ExploreDescTags"
+                    android:text="#rap #jews"
+                    app:layout_constraintBottom_toBottomOf="@+id/img3"
+                    app:layout_constraintEnd_toEndOf="@+id/img3_overlay"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@+id/img3_overlay"
+                    app:layout_constraintTop_toBottomOf="@+id/img3_name"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <TextView
+                    android:id="@+id/img4_overlay"
+                    style="@style/ExploreImgOverlay"
+                    app:layout_constraintBottom_toBottomOf="@+id/img4"
+                    app:layout_constraintEnd_toEndOf="@+id/img4"
+                    app:layout_constraintStart_toStartOf="@+id/img4"
+                    app:layout_constraintTop_toTopOf="@+id/img4" />
+
+                <TextView
+                    android:id="@+id/img4_name"
+                    style="@style/ExploreDescName"
+                    android:text="Azamat Bagatov"
+                    app:layout_constraintBottom_toBottomOf="@+id/img4"
+                    app:layout_constraintEnd_toEndOf="@+id/img4_overlay"
+                    app:layout_constraintStart_toStartOf="@+id/img4_overlay"
+                    app:layout_constraintTop_toTopOf="@+id/img4_overlay" />
+
+                <TextView
+                    android:id="@+id/img4_tags"
+                    style="@style/ExploreDescTags"
+                    android:text="TextView"
+                    app:layout_constraintBottom_toBottomOf="@+id/img4"
+                    app:layout_constraintEnd_toEndOf="@+id/img4_overlay"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@+id/img4_overlay"
+                    app:layout_constraintTop_toBottomOf="@+id/img4_name"
+                    app:layout_constraintVertical_bias="0.0" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -218,7 +302,7 @@
                 android:layout_height="200dp">
 
                 <ImageView
-                    android:id="@+id/imag5"
+                    android:id="@+id/img5"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:layout_marginStart="24dp"
@@ -230,7 +314,8 @@
                     app:layout_constraintEnd_toStartOf="@+id/img6"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0" />
 
                 <ImageView
                     android:id="@+id/img6"
@@ -243,8 +328,64 @@
                     android:src="@drawable/logo"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/imag5"
+                    app:layout_constraintStart_toEndOf="@+id/img5"
                     app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/img5_overlay"
+                    style="@style/ExploreImgOverlay"
+                    app:layout_constraintBottom_toBottomOf="@+id/img5"
+                    app:layout_constraintEnd_toEndOf="@+id/img5"
+                    app:layout_constraintStart_toStartOf="@+id/img5"
+                    app:layout_constraintTop_toTopOf="@+id/img5" />
+
+                <TextView
+                    android:id="@+id/img5_name"
+                    style="@style/ExploreDescName"
+                    android:text="Damjan Fujs"
+                    app:layout_constraintBottom_toBottomOf="@+id/img5"
+                    app:layout_constraintEnd_toEndOf="@+id/img5_overlay"
+                    app:layout_constraintStart_toStartOf="@+id/img5_overlay"
+                    app:layout_constraintTop_toTopOf="@+id/img5_overlay" />
+
+                <TextView
+                    android:id="@+id/img5_tags"
+                    style="@style/ExploreDescTags"
+                    android:text="#tpo #livelovelaugh"
+                    app:layout_constraintBottom_toBottomOf="@+id/img5"
+                    app:layout_constraintEnd_toEndOf="@+id/img5_overlay"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@+id/img5_overlay"
+                    app:layout_constraintTop_toBottomOf="@+id/img5_name"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <TextView
+                    android:id="@+id/img6_overlay"
+                    style="@style/ExploreImgOverlay"
+                    app:layout_constraintBottom_toBottomOf="@+id/img6"
+                    app:layout_constraintEnd_toEndOf="@+id/img6"
+                    app:layout_constraintStart_toStartOf="@+id/img6"
+                    app:layout_constraintTop_toTopOf="@+id/img6" />
+
+                <TextView
+                    android:id="@+id/img6_name"
+                    style="@style/ExploreDescName"
+                    android:text="Glob Glab"
+                    app:layout_constraintBottom_toBottomOf="@+id/img6"
+                    app:layout_constraintEnd_toEndOf="@+id/img6_overlay"
+                    app:layout_constraintStart_toStartOf="@+id/img6_overlay"
+                    app:layout_constraintTop_toTopOf="@+id/img6_overlay" />
+
+                <TextView
+                    android:id="@+id/img6_tags"
+                    style="@style/ExploreDescTags"
+                    android:text="#books #worm"
+                    app:layout_constraintBottom_toBottomOf="@+id/img6"
+                    app:layout_constraintEnd_toEndOf="@+id/img6_overlay"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@+id/img6_overlay"
+                    app:layout_constraintTop_toBottomOf="@+id/img6_name"
+                    app:layout_constraintVertical_bias="0.0" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </LinearLayout>

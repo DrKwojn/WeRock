@@ -45,5 +45,7 @@
     <string name="prof_edit_addcliptxt">Add Clip</string>
     <string name="prof_edit_img">Select profile picture:</string>
     <string name="edit_prof_addimg">Select</string>
+    <string name="log_out_dia1">Log Out</string>
+    <string name="logout_dia2">Are you sure you want to log out?</string>
 
 </resources>

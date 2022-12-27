@@ -24,7 +24,7 @@ public class MyProfileActivity extends AppCompatActivity {
         binding = ActivityMyprofileBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        editProfile = findViewById(R.id.addMedia);
+        editProfile = findViewById(R.id.edit_profile);
 
         Toolbar toolbar = binding.toolbar;
         setSupportActionBar(toolbar);

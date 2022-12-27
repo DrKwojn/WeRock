@@ -58,7 +58,7 @@ public class LoginActivity extends AppCompatActivity {
                 public void onResponse(AuthenticationToken authenticationToken) {
                     userTokenStorage.store(authenticationToken.getAccessToken());
                     startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                    //LoginActivity.this.finish();
+                    LoginActivity.this.finish();
                 }
 
                 @Override

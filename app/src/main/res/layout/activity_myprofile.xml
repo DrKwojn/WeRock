@@ -14,7 +14,7 @@
         android:layout_width="26dp"
         android:layout_height="26dp"
         android:layout_marginTop="16dp"
-        android:background="@drawable/chat_icon"
+        android:background="@drawable/chat_icon_black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.96"
         app:layout_constraintStart_toStartOf="parent"
@@ -34,7 +34,7 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:id="@+id/imageView2"
+                android:id="@+id/myProfilePic"
                 android:layout_width="wrap_content"
                 android:layout_height="200dp"
                 android:src="@drawable/logo"
@@ -42,59 +42,21 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/edit_user_input"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="User Userton"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView2" />
-
-            <TextView
-                android:id="@+id/edit_tags_input"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="18dp"
-                android:text="#rock # pop"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/edit_user_input" />
-
-            <TextView
-                android:id="@+id/aboutme_txt"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:text="About me:"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edit_tags_input" />
-
-            <TextView
-                android:id="@+id/aboutme_txt_input"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="I am the Globgloglabgalab"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/aboutme_txt" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
-        app:title="WeRock"
-        app:titleTextColor="@color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/black"
+        android:background="@color/white"
         android:minHeight="?attr/actionBarSize"
         android:theme="@style/Theme.WeRock"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="WeRock"
+        app:titleTextColor="@color/black" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/audioContainer"
@@ -107,13 +69,71 @@
         app:layout_constraintTop_toBottomOf="@+id/scrollView2">
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/edit_profile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Button"
+            android:layout_marginTop="64dp"
+            android:text="Edit Profile"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/profile_nameview"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="My Name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/profile_tagview"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="My Tags"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profile_nameview" />
+
+        <TextView
+            android:id="@+id/profile_aboutme_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="About Me"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.501"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profile_tagview" />
+
+        <VideoView
+            android:id="@+id/myVideo"
+            android:layout_width="0dp"
+            android:layout_height="200dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edit_profile"
+            app:layout_constraintVertical_bias="0.102" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clipsContainer"
+            android:layout_width="409dp"
+            android:layout_height="272dp"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginEnd="1dp"
+            android:layout_marginBottom="1dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/myVideo">
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
