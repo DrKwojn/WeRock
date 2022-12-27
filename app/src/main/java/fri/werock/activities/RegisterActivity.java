@@ -147,6 +147,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure() {
+                    Log.d("MESSAGEEE", "Fail");
                     //TODO: Connection error
                     showDialog();
                 }

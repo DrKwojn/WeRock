@@ -11,9 +11,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import fri.werock.R;
 import fri.werock.databinding.ActivityEditProfileBinding;
@@ -43,6 +47,9 @@ private ActivityEditProfileBinding binding;
         Toolbar toolbar = binding.toolbar;
         setSupportActionBar(toolbar);
         toolbar.setTitle("WeRock");
+
+        String idk = ytLinkParser("https://www.youtube.com/watch?v=bsJyoHA2_Iw&ab_channel=AwaisMirza");
+        Log.d("URL HEEEEERE", idk);
 
         addMedia.setOnClickListener(view -> {
             if(layout.getChildCount()<2) {
@@ -96,5 +103,17 @@ private ActivityEditProfileBinding binding;
         });
 
         dialog.show();
+    }
+
+    public String ytLinkParser(String url){
+        String pattern = "https?:\\/\\/(?:[0-9A-Z-]+\\.)?(?:youtu\\.be\\/|youtube\\.com\\S*[^\\w\\-\\s])([\\w\\-]{11})(?=[^\\w\\-]|$)(?![?=&+%\\w]*(?:['\"][^<>]*>|<\\/a>))[?=&+%\\w]*";
+
+        Pattern compiledPattern = Pattern.compile(pattern,
+                Pattern.CASE_INSENSITIVE);
+        Matcher matcher = compiledPattern.matcher(url);
+        if (matcher.find()) {
+            return matcher.group(1);
+        }
+        return null;
     }
 }

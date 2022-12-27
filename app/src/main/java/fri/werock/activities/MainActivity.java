@@ -3,7 +3,6 @@ package fri.werock.activities;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -15,8 +14,8 @@ import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import java.util.ArrayList;
 import java.util.List;
-
 import fri.werock.R;
 import fri.werock.api.ApiError;
 import fri.werock.api.WeRockApi;
@@ -33,7 +32,9 @@ public class MainActivity extends AuthenticatedActivity implements View.OnTouchL
     private TextView img1_tags, img2_tags, img3_tags, img4_tags, img5_tags, img6_tags;
     private Button previousButton, nextButton;
     private Button homeButton, searchButton;
+    private ConstraintLayout r1c1,r1c2,r2c1,r2c2,r3c1,r3c2;
 
+    //UserElementHandler userElementHandler = new UserElementHandler();
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -41,28 +42,76 @@ public class MainActivity extends AuthenticatedActivity implements View.OnTouchL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ImageView img = findViewById(R.id.img1);
-        this.logout = findViewById(R.id.log_out);
-        this.profile = findViewById(R.id.myprofile_button);
+        logout = findViewById(R.id.log_out);
+        profile = findViewById(R.id.myprofile_button);
+
+
+        img1 = findViewById(R.id.img1);
+        img2 = findViewById(R.id.img2);
+        img3 = findViewById(R.id.img3);
+        img4 = findViewById(R.id.img4);
+        img5 = findViewById(R.id.img5);
+        img6 = findViewById(R.id.img6);
+
+        ArrayList<TextView> nameFields = new ArrayList<>();
+
+        nameFields.add(img1_name = findViewById(R.id.img1_name));
+        nameFields.add(img2_name = findViewById(R.id.img2_name));
+        nameFields.add(img3_name = findViewById(R.id.img3_name));
+        nameFields.add(img4_name = findViewById(R.id.img4_name));
+        nameFields.add(img5_name = findViewById(R.id.img5_name));
+        nameFields.add(img6_name = findViewById(R.id.img6_name));
+
+
+
+
+        img1_tags = findViewById(R.id.img1_tags);
+        img2_tags = findViewById(R.id.img2_tags);
+        img3_tags = findViewById(R.id.img3_tags);
+        img4_tags = findViewById(R.id.img4_tags);
+        img5_tags = findViewById(R.id.img5_tags);
+        img6_tags = findViewById(R.id.img6_tags);
+
+        previousButton = findViewById(R.id.explore_back_button);
+        nextButton = findViewById(R.id.explore_next_button);
+
+        homeButton = findViewById(R.id.home_button);
+        searchButton = findViewById(R.id.search_button);
+
+        ArrayList<ConstraintLayout> userTiles = new ArrayList<>();
+
+        userTiles.add(r1c1 = findViewById(R.id.r1c1));
+        userTiles.add(r1c2 = findViewById(R.id.r1c2));
+        userTiles.add(r2c1 = findViewById(R.id.r2c2));
+        userTiles.add(r2c2 = findViewById(R.id.r2c1));
+        userTiles.add(r3c1 = findViewById(R.id.r3c1));
+        userTiles.add(r3c2 = findViewById(R.id.r3c2));
+
+
+        ArrayList<String> tempUsernames = new ArrayList<>();
+
+
 
         UserTokenStorage userTokenStorage = new UserTokenStorage(MainActivity.this);
-        this.logout.setOnClickListener(view -> {
+        logout.setOnClickListener(view -> {
             showDialog(userTokenStorage);
         });
-        this.profile.setOnClickListener(view -> {
+        profile.setOnClickListener(view -> {
             startActivity(new Intent(getApplicationContext(), MyProfileActivity.class));
         });
 
-        img.setOnTouchListener(this);
+
         WeRockApi.fetch(this.weRockApi.getUserList(), new WeRockApiCallback<List<User>>() {
             @Override
             public void onResponse(List<User> users) {
-                String text = "";
-                //for(User user : users){
-                //    text += user.getUsername() + "\n";
-                //}
+                for(User user : users){
+                    tempUsernames.add(user.getUsername());
+                }
 
-               // textView.setText(text);
+                for(int i=0; i<tempUsernames.size(); i++){
+                    nameFields.get(i).setText(tempUsernames.get(i));
+                    userTiles.get(i).setVisibility(View.VISIBLE);
+                }
             }
 
             @Override
@@ -75,7 +124,11 @@ public class MainActivity extends AuthenticatedActivity implements View.OnTouchL
                 textView.setText("Failure");
             }
         });
+
+
+
     }
+
 
 
     @Override
