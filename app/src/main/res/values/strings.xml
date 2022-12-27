@@ -42,5 +42,8 @@
     <string name="cliphint">Tap the button to add an audio clip\nThe maximum clip length is 1 minute</string>
     <string name="registration_txt">To get started, please register using the form below.</string>
     <string name="reg_txt">Welcome to WeRock!</string>
+    <string name="prof_edit_addcliptxt">Add Clip</string>
+    <string name="prof_edit_img">Select profile picture:</string>
+    <string name="edit_prof_addimg">Select</string>
 
 </resources>

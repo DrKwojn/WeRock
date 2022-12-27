@@ -24,7 +24,7 @@ public class MainActivity extends AuthenticatedActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        textView = findViewById(R.id.text_view);
+        //textView = findViewById(R.id.text_view);
         this.logout = findViewById(R.id.log_out);
         this.profile = findViewById(R.id.myprofile_button);
 
@@ -44,11 +44,11 @@ public class MainActivity extends AuthenticatedActivity {
             @Override
             public void onResponse(List<User> users) {
                 String text = "";
-                for(User user : users){
-                    text += user.getUsername() + "\n";
-                }
+                //for(User user : users){
+                //    text += user.getUsername() + "\n";
+                //}
 
-                textView.setText(text);
+               // textView.setText(text);
             }
 
             @Override
