@@ -31,6 +31,8 @@ public class MainActivity extends AuthenticatedActivity implements View.OnTouchL
     private ImageView img1, img2, img3, img4, img5, img6;
     private TextView img1_name, img2_name, img3_name, img4_name, img5_name, img6_name;
     private TextView img1_tags, img2_tags, img3_tags, img4_tags, img5_tags, img6_tags;
+    private Button previousButton, nextButton;
+    private Button homeButton, searchButton;
 
 
     @SuppressLint("ClickableViewAccessibility")
@@ -38,8 +40,8 @@ public class MainActivity extends AuthenticatedActivity implements View.OnTouchL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         ImageView img = findViewById(R.id.img1);
-        //textView = findViewById(R.id.text_view);
         this.logout = findViewById(R.id.log_out);
         this.profile = findViewById(R.id.myprofile_button);
 
