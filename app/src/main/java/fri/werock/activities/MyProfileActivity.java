@@ -44,8 +44,8 @@ public class MyProfileActivity extends YouTubeBaseActivity {
                 (YouTubePlayerView) findViewById(R.id.myVideo);
 
         String funnyvid = "https://youtu.be/dQw4w9WgXcQ";
-
-        youTubePlayerView.initialize("AIzaSyBq3HdLDiOXupsQ-dMvzPTNS1MJB2kKlqc",
+        //API key needs to be stored elsewhere
+        youTubePlayerView.initialize("API KEY",
                 new YouTubePlayer.OnInitializedListener() {
                     @Override
                     public void onInitializationSuccess(YouTubePlayer.Provider provider,
