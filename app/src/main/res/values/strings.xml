@@ -36,16 +36,21 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
-    <string name="edit_user_txt">Edit Username:</string>
+    <string name="edit_user_txt">Name:</string>
     <string name="hint_tags">#blues, #rock</string>
     <string name="tags_txt">Tags:</string>
     <string name="cliphint">Tap the button to add an audio clip\nThe maximum clip length is 1 minute</string>
     <string name="registration_txt">To get started, please register using the form below.</string>
     <string name="reg_txt">Welcome to WeRock!</string>
-    <string name="prof_edit_addcliptxt">Add Clip</string>
+    <string name="prof_edit_addcliptxt">Add demo</string>
     <string name="prof_edit_img">Select profile picture:</string>
     <string name="edit_prof_addimg">Select</string>
     <string name="log_out_dia1">Log Out</string>
     <string name="logout_dia2">Are you sure you want to log out?</string>
+    <string name="edit_prof_pic">Edit profile picture</string>
+    <string name="add_link_desc">*You can also provide a link to a video of your performance:</string>
+    <string name="mydemos_txt">My demos:</string>
+    <string name="clip_tip_txt">*Two demos can be added (1 minute per demo max)</string>
+    <string name="savechanges_txt">Save changes</string>
 
 </resources>

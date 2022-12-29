@@ -134,9 +134,9 @@ public class MainActivity extends AuthenticatedActivity implements View.OnTouchL
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
         if (motionEvent.getAction() == android.view.MotionEvent.ACTION_DOWN) {
-            Log.d("TouchTest", "Touch down");
+            view.setElevation(0);
         } else if (motionEvent.getAction() == android.view.MotionEvent.ACTION_UP) {
-            Log.d("TouchTest", "Touch up");
+            view.setElevation(8);
         }
         return true;
     }

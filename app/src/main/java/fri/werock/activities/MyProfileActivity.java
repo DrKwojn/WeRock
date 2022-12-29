@@ -35,13 +35,7 @@ public class MyProfileActivity extends YouTubeBaseActivity {
 
         editProfile = findViewById(R.id.edit_profile);
 
-        //Toolbar toolbar = binding.toolbar;
-        //setSupportActionBar(toolbar);
-        //toolbar.setTitle("WeRock");
-
-
-        YouTubePlayerView youTubePlayerView =
-                (YouTubePlayerView) findViewById(R.id.myVideo);
+        YouTubePlayerView youTubePlayerView = findViewById(R.id.myVideo);
 
         String funnyvid = "https://youtu.be/dQw4w9WgXcQ";
         //API key needs to be stored elsewhere
@@ -51,7 +45,7 @@ public class MyProfileActivity extends YouTubeBaseActivity {
                     public void onInitializationSuccess(YouTubePlayer.Provider provider,
                                                         YouTubePlayer youTubePlayer, boolean b) {
 
-                        youTubePlayer.loadVideo(ytLinkParser(funnyvid));
+                        youTubePlayer.cueVideo(ytLinkParser(funnyvid));
                     }
 
                     @Override
@@ -76,8 +70,8 @@ public class MyProfileActivity extends YouTubeBaseActivity {
         super.onBackPressed();
     }
 
-
     public String ytLinkParser(String url){
+
         String pattern = "https?:\\/\\/(?:[0-9A-Z-]+\\.)?(?:youtu\\.be\\/|youtube\\.com\\S*[^\\w\\-\\s])([\\w\\-]{11})(?=[^\\w\\-]|$)(?![?=&+%\\w]*(?:['\"][^<>]*>|<\\/a>))[?=&+%\\w]*";
 
         Pattern compiledPattern = Pattern.compile(pattern,

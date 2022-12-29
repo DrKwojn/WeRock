@@ -138,6 +138,7 @@ public class AudioPlayer {
         deleteButton.setOnClickListener(view -> {
             dialog.dismiss();
             mediaPlayer.release();
+
             deletePlayer(layout, del_id);
         });
 

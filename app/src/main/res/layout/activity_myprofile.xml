@@ -22,8 +22,8 @@
 
     <ImageView
         android:id="@+id/myProfilePic"
-        android:layout_width="412dp"
-        android:layout_height="142dp"
+        android:layout_width="0dp"
+        android:layout_height="220dp"
         android:src="@drawable/logo"
         app:layout_constraintBottom_toTopOf="@+id/profile_nameview"
         app:layout_constraintEnd_toEndOf="parent"
@@ -35,7 +35,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        android:minHeight="?attr/actionBarSize"
         android:theme="@style/Theme.WeRock"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

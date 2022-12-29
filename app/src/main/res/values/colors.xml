@@ -16,4 +16,6 @@
     <color name="user_desc_tags">#BBBFF2</color>
     <color name="seek_bar_progress">#7494F0</color>
     <color name="seek_bar_secondary_progress">#3399CC</color>
+    <color name="add_media_color">#7595EF</color>
+    <color name="save_cng_color">#7897ED</color>
 </resources>
