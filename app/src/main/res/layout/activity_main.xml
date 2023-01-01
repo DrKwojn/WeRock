@@ -5,28 +5,494 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.MainActivity"
-    android:background="@drawable/gradient_image">
-
-    <TextView
-        android:id="@+id/text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        android:textSize="40sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.25" />
+    android:background="@color/white">
 
     <Button
         android:id="@+id/log_out"
-        android:layout_width="wrap_content"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="16dp"
+        android:background="@drawable/log_out_icon"
+        app:layout_constraintBottom_toBottomOf="@+id/toolbar2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/toolbar2"
+        app:layout_constraintVertical_bias="0.538" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar2"
+        app:titleMarginStart="64dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/log_out"
+        android:layout_marginTop="24dp"
+        android:background="@color/white"
+        android:fontFamily="sans-serif"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/Theme.WeRock"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="WeRock"
+        app:titleTextColor="@color/black" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="24dp"
+        android:background="@drawable/chat_icon_black"
+        app:layout_constraintBottom_toBottomOf="@+id/toolbar2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/toolbar2"
+        app:layout_constraintVertical_bias="0.142" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar3"
+        android:layout_width="0dp"
+
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:background="@drawable/toolbar_border"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/search_button"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="48dp"
+        android:elevation="8dp"
+        android:background="@drawable/search_icon"
+        app:layout_constraintBottom_toBottomOf="@+id/toolbar3"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_view" />
+        app:layout_constraintTop_toTopOf="@+id/toolbar3" />
+
+    <Button
+        android:id="@+id/home_button"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:background="@drawable/home_icon"
+        android:elevation="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/toolbar3"
+        app:layout_constraintEnd_toStartOf="@+id/myprofile_button"
+        app:layout_constraintStart_toEndOf="@+id/search_button"
+        app:layout_constraintTop_toTopOf="@+id/toolbar3" />
+
+    <Button
+        android:id="@+id/myprofile_button"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginEnd="48dp"
+        android:background="@mipmap/ic_launcher"
+        android:elevation="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/toolbar3"
+        app:layout_constraintEnd_toEndOf="@+id/toolbar3"
+        app:layout_constraintTop_toTopOf="@+id/toolbar3" />
+
+    <ScrollView
+        android:id="@+id/scrollView3"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginBottom="24dp"
+        app:layout_constraintBottom_toTopOf="@+id/explore_back_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar2">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/row1"
+                android:layout_width="match_parent"
+                android:layout_height="200dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/r1c1"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/r1c2"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0">
+
+                    <ImageView
+                        android:id="@+id/img1"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:background="@drawable/image_border"
+                        android:src="@drawable/logo"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/img1_overlay"
+                        style="@style/ExploreImgOverlay"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/img1"
+                        app:layout_constraintStart_toStartOf="@+id/img1"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/img1_tags"
+                        style="@style/ExploreDescTags"
+                        android:text="#jazz #blues"
+                        app:layout_constraintBottom_toBottomOf="@+id/img1"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="@+id/img1_overlay"
+                        app:layout_constraintTop_toBottomOf="@+id/img1_name"
+                        app:layout_constraintVertical_bias="0.0" />
+
+                    <TextView
+                        android:id="@+id/img1_name"
+                        style="@style/ExploreDescName"
+                        android:text="Jaden Jaden"
+                        app:layout_constraintBottom_toBottomOf="@+id/img1"
+                        app:layout_constraintEnd_toEndOf="@id/img1_overlay"
+                        app:layout_constraintStart_toStartOf="@id/img1_overlay"
+                        app:layout_constraintTop_toTopOf="@+id/img1_overlay" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/r1c2"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="24dp"
+                    android:layout_marginBottom="16dp"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/r1c1"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:id="@+id/img2"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:background="@drawable/image_border"
+                        android:src="@drawable/logo"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/img2_overlay"
+                        style="@style/ExploreImgOverlay"
+                        app:layout_constraintBottom_toBottomOf="@+id/img2"
+                        app:layout_constraintEnd_toEndOf="@+id/img2"
+                        app:layout_constraintStart_toStartOf="@+id/img2"
+                        app:layout_constraintTop_toTopOf="@+id/img2" />
+
+                    <TextView
+                        android:id="@+id/img2_name"
+                        style="@style/ExploreDescName"
+                        android:text="Blab Blab"
+                        app:layout_constraintBottom_toBottomOf="@+id/img2"
+                        app:layout_constraintEnd_toEndOf="@+id/img2_overlay"
+                        app:layout_constraintStart_toStartOf="@+id/img2_overlay"
+                        app:layout_constraintTop_toTopOf="@+id/img2_overlay" />
+
+                    <TextView
+                        android:id="@+id/img2_tags"
+                        style="@style/ExploreDescTags"
+                        android:text="#yoyo #blabla"
+                        app:layout_constraintBottom_toBottomOf="@id/img2_overlay"
+                        app:layout_constraintEnd_toEndOf="@id/img2_overlay"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/img2_name"
+                        app:layout_constraintVertical_bias="0.0" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/row2"
+                android:layout_width="match_parent"
+                android:layout_height="200dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/r2c2"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="24dp"
+                    android:layout_marginBottom="16dp"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/r2c1"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:id="@+id/img4"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:background="@drawable/image_border"
+                        android:src="@drawable/logo"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/img4_overlay"
+                        style="@style/ExploreImgOverlay"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/img4"
+                        app:layout_constraintStart_toStartOf="@+id/img4"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/img4_tags"
+                        style="@style/ExploreDescTags"
+                        android:text="TextView"
+                        app:layout_constraintBottom_toBottomOf="@+id/img4"
+                        app:layout_constraintEnd_toEndOf="@+id/img4_overlay"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/img4_name"
+                        app:layout_constraintVertical_bias="0.0" />
+
+                    <TextView
+                        android:id="@+id/img4_name"
+                        style="@style/ExploreDescName"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:text="Azamat Bagatov"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/img4_overlay"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/img4_overlay"
+                        app:layout_constraintVertical_bias="0.0" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/r2c1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/r2c2"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:id="@+id/img3"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:background="@drawable/image_border"
+                        android:src="@drawable/logo"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="1.0" />
+
+                    <TextView
+                        android:id="@+id/img3_overlay"
+                        style="@style/ExploreImgOverlay"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/img3_name"
+                        style="@style/ExploreDescName"
+                        android:text="Kanye West"
+                        app:layout_constraintBottom_toBottomOf="@+id/img3"
+                        app:layout_constraintEnd_toEndOf="@+id/img3_overlay"
+                        app:layout_constraintStart_toStartOf="@+id/img3_overlay"
+                        app:layout_constraintTop_toTopOf="@+id/img3_overlay" />
+
+                    <TextView
+                        android:id="@+id/img3_tags"
+                        style="@style/ExploreDescTags"
+                        android:text="#rap "
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/img3_name"
+                        app:layout_constraintVertical_bias="0.0" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/row3"
+                android:layout_width="match_parent"
+                android:layout_height="200dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/r3c1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/r3c2"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:id="@+id/img5"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:background="@drawable/image_border"
+                        android:src="@drawable/logo"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/img5_overlay"
+                        style="@style/ExploreImgOverlay"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/img5_name"
+                        style="@style/ExploreDescName"
+                        android:text="Damjan Fujs"
+                        app:layout_constraintBottom_toBottomOf="@+id/img5"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/img5_overlay"
+                        app:layout_constraintTop_toTopOf="@+id/img5_overlay" />
+
+                    <TextView
+                        android:id="@+id/img5_tags"
+                        style="@style/ExploreDescTags"
+                        android:text="#tpo #livelovelaugh"
+                        app:layout_constraintBottom_toBottomOf="@+id/img5"
+                        app:layout_constraintEnd_toEndOf="@+id/img5_overlay"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/img5_name"
+                        app:layout_constraintVertical_bias="0.0" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/r3c2"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="24dp"
+                    android:layout_marginBottom="16dp"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/r3c1"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:id="@+id/img6"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:background="@drawable/image_border"
+                        android:src="@drawable/logo"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/img6_overlay"
+                        style="@style/ExploreImgOverlay"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/img6_name"
+                        style="@style/ExploreDescName"
+                        android:text="Glob Glab"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/img6_overlay" />
+
+                    <TextView
+                        android:id="@+id/img6_tags"
+                        style="@style/ExploreDescTags"
+                        android:text="#books #worm"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/img6_name"
+                        app:layout_constraintVertical_bias="0.0" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/explore_back_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:text="Previous Page"
+        app:layout_constraintBottom_toTopOf="@+id/toolbar3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.215"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/explore_next_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Next Page"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.266"
+        app:layout_constraintStart_toEndOf="@+id/explore_back_button"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView3" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

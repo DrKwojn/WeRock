@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coordinatorLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="@color/white"
+    tools:context=".activities.EditProfileActivity">
+
+    <Button
+        android:id="@+id/message_myprof"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/chat_icon_black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.96"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/myProfilePic"
+        android:layout_width="0dp"
+        android:layout_height="220dp"
+        android:src="@drawable/logo"
+        app:layout_constraintBottom_toTopOf="@+id/profile_nameview"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:theme="@style/Theme.WeRock"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="WeRock"
+        app:titleTextColor="@color/black" />
+
+    <com.google.android.youtube.player.YouTubePlayerView
+        android:id="@+id/myVideo"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="32dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/audioContainer" />
+
+    <TextView
+        android:id="@+id/profile_aboutme_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="About Me"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profile_tagview" />
+
+    <TextView
+        android:id="@+id/profile_tagview"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="My Tags"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profile_nameview" />
+
+    <TextView
+        android:id="@+id/profile_nameview"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="29dp"
+        android:text="My Name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/myProfilePic" />
+
+    <Button
+        android:id="@+id/edit_profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="16dp"
+        android:text="Edit Profile"
+        app:layout_constraintBottom_toTopOf="@+id/audioContainer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profile_aboutme_view" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/audioContainer"
+        android:layout_width="0dp"
+
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/myVideo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_profile"/>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

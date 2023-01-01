@@ -2,9 +2,10 @@ package fri.werock.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -38,14 +39,15 @@ public class LoginActivity extends AppCompatActivity {
         UserTokenStorage userTokenStorage = new UserTokenStorage(LoginActivity.this);
         WeRockApi weRockApi = WeRockApi.create(this);
 
+
         this.editUsername = this.findViewById(R.id.edit_email);
         this.editPassword = this.findViewById(R.id.edit_username);
 
-        this.usernameErr = this.findViewById(R.id.userErr);
-        this.passwordErr = this.findViewById(R.id.passErr);
+        this.usernameErr = this.findViewById(R.id.userErr_log);
+        this.passwordErr = this.findViewById(R.id.passErr_log);
 
 
-        this.buttonLogin = this.findViewById(R.id.login_button);
+        this.buttonLogin = this.findViewById(R.id.del_clip_no);
         this.buttonLogin.setOnClickListener(view -> {
             UserAccount userAccount = new UserAccount();
             userAccount.setUsername(this.editUsername.getText().toString().trim());
@@ -56,18 +58,19 @@ public class LoginActivity extends AppCompatActivity {
                 public void onResponse(AuthenticationToken authenticationToken) {
                     userTokenStorage.store(authenticationToken.getAccessToken());
                     startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    LoginActivity.this.finish();
                 }
 
                 @Override
                 public void onError(ApiError error) {
                     //If username not found
                     if(!userAccount.getUsername().equals(user)) {
-                        usernameErr.setVisibility(View.VISIBLE);
                         usernameErr.setText("Username not found");
+                    }else{
+                        usernameErr.setText("");
                     }
 
                     if(!userAccount.getPassword().equals(password)) {
-                        passwordErr.setVisibility(View.VISIBLE);
                         passwordErr.setText("Incorrect password");
                     }
 
@@ -77,6 +80,8 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
                 public void onFailure() {
                     //TODO: Connection error
+                    showDialog();
+
                 }
             });
         });
@@ -86,4 +91,19 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(new Intent(this.getApplicationContext(), RegisterActivity.class));
         });
     }
+    void showDialog(){
+        final Dialog dialog = new Dialog(LoginActivity.this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(true);
+        dialog.setContentView(R.layout.no_connection_dialog);
+
+        Button closeButton = dialog.findViewById(R.id.del_clip_no);
+
+        closeButton.setOnClickListener(view -> {
+            dialog.dismiss();
+        });
+
+        dialog.show();
+    }
+
 }
