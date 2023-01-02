@@ -39,6 +39,8 @@ public class LoginActivity extends AppCompatActivity {
         UserTokenStorage userTokenStorage = new UserTokenStorage(LoginActivity.this);
         WeRockApi weRockApi = WeRockApi.create(this);
 
+        //TEST
+        //startActivity(new Intent(getApplicationContext(), MyProfileActivity.class));
 
         this.editUsername = this.findViewById(R.id.edit_email);
         this.editPassword = this.findViewById(R.id.edit_username);
@@ -88,7 +90,10 @@ public class LoginActivity extends AppCompatActivity {
 
         this.buttonRegister = this.findViewById(R.id.register_button);
         this.buttonRegister.setOnClickListener(view -> {
-            startActivity(new Intent(this.getApplicationContext(), RegisterActivity.class));
+
+            //TEST
+            //startActivity(new Intent(this.getApplicationContext(), RegisterActivity.class));
+            startActivity(new Intent(this.getApplicationContext(), MyProfileActivity.class));
         });
     }
     void showDialog(){
