@@ -33,6 +33,16 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <ImageView
+                android:id="@+id/myProfile_lines"
+                android:layout_width="0dp"
+                android:layout_height="120dp"
+                android:src="@drawable/lines2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/profile_aboutme_view" />
+
             <TextView
                 android:id="@+id/profile_nameview"
                 android:layout_width="0dp"
@@ -84,7 +94,9 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
+                android:background="@color/add_media_color"
                 android:text="Edit Profile"
+                android:textColor="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/profile_aboutme_view" />
@@ -94,7 +106,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="32dp"
                 android:layout_marginEnd="16dp"
                 android:text="@string/mydemos_txt"
                 android:textColor="@color/black"
