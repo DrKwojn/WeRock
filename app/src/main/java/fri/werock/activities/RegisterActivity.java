@@ -15,7 +15,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import fri.werock.R;
-import fri.werock.api.ApiError;
+import fri.werock.api.WeRockApiError;
 import fri.werock.api.WeRockApi;
 import fri.werock.api.WeRockApiCallback;
 import fri.werock.models.UserAccount;
@@ -86,46 +86,47 @@ public class RegisterActivity extends AppCompatActivity {
         this.buttonRegister.setOnClickListener(view -> {
 
             String password = this.editPassword.getText().toString().trim();
-            if(!password.equals(this.editRetryPassword.getText().toString().trim())){
-                passConfErr.setText("Passwords must match!");
-                return;
-
-            }else{
-                passConfErr.setText("");
-                if(!matchesPattern(password, p)) {
-                    passwordErr.setText("8 characters (1-9, A-Za-z and special) required!");
-                    return;
-                }else{
-                    passwordErr.setText("");
-                }
-            }
+//            if(!password.equals(this.editRetryPassword.getText().toString().trim())){
+//                passConfErr.setText("Passwords must match!");
+//                return;
+//
+//            }else{
+//                passConfErr.setText("");
+//                if(!matchesPattern(password, p)) {
+//                    passwordErr.setText("8 characters (1-9, A-Za-z and special) required!");
+//                    return;
+//                }else{
+//                    passwordErr.setText("");
+//                }
+//            }
 
             UserAccount userAccount = new UserAccount();
             userAccount.setUsername(this.editUsername.getText().toString().trim());
             userAccount.setEmail(this.editEmail.getText().toString().trim());
             userAccount.setPassword(password);
 
-            if(userAccount.getEmail().equals(mail)){
-                emailErr.setText("E-mail already exists");
-                return;
-            }else{
-                emailErr.setText("");
-            }
-            if(userAccount.getUsername().equals(user)){
-                usernameErr.setText("Username already exists");
-                return;
-            }else{
-                usernameErr.setText("");
-            }
+//            if(userAccount.getEmail().equals(mail)){
+//                emailErr.setText("E-mail already exists");
+//                return;
+//            }else{
+//                emailErr.setText("");
+//            }
+//            if(userAccount.getUsername().equals(user)){
+//                usernameErr.setText("Username already exists");
+//                return;
+//            }else{
+//                usernameErr.setText("");
+//            }
 
             WeRockApi.fetch(weRockApi.register(userAccount), new WeRockApiCallback<Void>() {
                 @Override
                 public void onResponse(Void unused) {
                     startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                    RegisterActivity.this.finish();
                 }
 
                 @Override
-                public void onError(ApiError error) {
+                public void onError(WeRockApiError error) {
                     Log.d("Err", error.toString());
                     //TODO: Response errors
                     if(userAccount.getEmail().equals(mail)){

@@ -4,6 +4,9 @@ import android.content.Context;
 
 import androidx.annotation.NonNull;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
+
 import java.io.IOException;
 import java.util.List;
 
@@ -22,6 +25,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
+import retrofit2.http.Path;
 
 public interface WeRockApi {
     static WeRockApi create(Context context) {
@@ -54,17 +59,27 @@ public interface WeRockApi {
                 if(response.isSuccessful()) {
                     callback.onResponse(response.body());
                 } else {
-                    ApiError error = new ApiError();
                     ResponseBody responseBody = response.errorBody();
-                    if(responseBody != null) {
-                        String errorJson = null;
-                        try {
-                            errorJson = responseBody.string();
-                        } catch (IOException ignored) {}
+                    if(responseBody == null) {
+                        callback.onError(WeRockApiError.BODY_MISSING_ERROR);
+                        return;
+                    }
 
-                        if(errorJson != null) {
-                            callback.onError(error);
-                        }
+                    String errorJson = null;
+                    try {
+                        errorJson = responseBody.string();
+                    } catch (IOException ignored) {}
+
+                    if(errorJson == null || errorJson.isEmpty()) {
+                        callback.onError(WeRockApiError.BODY_MISSING_ERROR);
+                        return;
+                    }
+
+                    WeRockApiError error;
+                    try {
+                        error = new Gson().fromJson(errorJson, WeRockApiError.class);
+                    } catch (JsonSyntaxException exception) {
+                        error = WeRockApiError.FAILED_PARSING_JSON_ERROR;
                     }
 
                     callback.onError(error);
@@ -84,9 +99,12 @@ public interface WeRockApi {
     @POST("login")
     Call<AuthenticationToken> login(@Body UserAccount userAccount);
 
-    @GET("valid")
-    Call<Void> validate();
-
     @GET("user/list")
-    Call<List<User>> getUserList();
+    Call<List<User>> getUsers();
+
+    @GET("user/{id}")
+    Call<User> getUser(@Path("id") int id);
+
+//    @PUT("user/{id}")
+//    Call<Void> updateUser(@Path("id") int id, @Body User user);
 }
