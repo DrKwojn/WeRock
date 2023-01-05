@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
@@ -63,6 +64,8 @@ public class LoginActivity extends AppCompatActivity {
 
                 @Override
                 public void onError(WeRockApiError error) {
+
+                    Log.d("MSG", error.toString());
                     //If username not found
                     if(!userAccount.getUsername().equals(user)) {
                         usernameErr.setText("Username not found");
