@@ -6,8 +6,6 @@
         android:color="#FFFFFF" >
     </solid>
 
-
-
     <padding
         android:left="5dp"
         android:top="5dp"
