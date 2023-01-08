@@ -39,28 +39,20 @@ import fri.werock.api.WeRockApiCallback;
 import fri.werock.api.WeRockApiError;
 import fri.werock.models.User;
 
-public class ProfileFragment extends YouTubePlayerSupportFragmentX {
+public class YtPlayerFrag extends YouTubePlayerSupportFragmentX {
     private int id;
 
     private TextView name;
-    public ProfileFragment() {}
+    public YtPlayerFrag() {}
 
-    public static ProfileFragment newInstance(int id) {
-        ProfileFragment fragment = new ProfileFragment();
-        Bundle args = new Bundle();
-        args.putInt("ID", id);
-        fragment.setArguments(args);
+    public static YtPlayerFrag newInstance(int id) {
+        YtPlayerFrag fragment = new YtPlayerFrag();
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (this.getArguments() == null) {
-            return;
-        }
-
-        this.id = this.getArguments().getInt("ID");
     }
 
     @Override
@@ -77,6 +69,36 @@ public class ProfileFragment extends YouTubePlayerSupportFragmentX {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        String funnyvid = "https://youtu.be/dQw4w9WgXcQ";
+
+        YouTubePlayerSupportFragmentX ytvid = YouTubePlayerSupportFragmentX.newInstance();
+        ytvid.initialize("AIzaSyBq3HdLDiOXupsQ-dMvzPTNS1MJB2kKlqc",
+                new YouTubePlayer.OnInitializedListener() {
+                    @Override
+                    public void onInitializationSuccess(YouTubePlayer.Provider provider,
+                                                        YouTubePlayer youTubePlayer, boolean b) {
+
+                        youTubePlayer.cueVideo(ytLinkParser(funnyvid));
+                    }
+
+                    @Override
+                    public void onInitializationFailure(YouTubePlayer.Provider provider,
+                                                        YouTubeInitializationResult youTubeInitializationResult) {
+                        Log.d("FAIL", youTubeInitializationResult.toString());
+                    }
+                });
     }
-    
+
+    public String ytLinkParser(String url){
+
+        String pattern = "https?:\\/\\/(?:[0-9A-Z-]+\\.)?(?:youtu\\.be\\/|youtube\\.com\\S*[^\\w\\-\\s])([\\w\\-]{11})(?=[^\\w\\-]|$)(?![?=&+%\\w]*(?:['\"][^<>]*>|<\\/a>))[?=&+%\\w]*";
+
+        Pattern compiledPattern = Pattern.compile(pattern,
+                Pattern.CASE_INSENSITIVE);
+        Matcher matcher = compiledPattern.matcher(url);
+        if (matcher.find()) {
+            return matcher.group(1);
+        }
+        return null;
+    }
 }
