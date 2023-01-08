@@ -1,6 +1,7 @@
 package fri.werock.fragments;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -63,7 +64,7 @@ public class EditProfileFragment extends Fragment {
     private final int PICK_AUDIO = 1;
     private final int PICK_IMAGE = 2;
     Uri AudioUri;
-    AudioPlayer audioPlayer = new AudioPlayer(this.getContext());
+    AudioPlayer audioPlayer;
 
     public EditProfileFragment() {}
 
@@ -84,6 +85,12 @@ public class EditProfileFragment extends Fragment {
     }
 
     @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        audioPlayer = new AudioPlayer(context);
+    }
+
+    @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
@@ -93,6 +100,8 @@ public class EditProfileFragment extends Fragment {
             return;
 
         }
+
+
 
         addMedia = this.getActivity().findViewById(R.id.addMedia);
         editPicture = this.getActivity().findViewById(R.id.edit_profile_pic);
