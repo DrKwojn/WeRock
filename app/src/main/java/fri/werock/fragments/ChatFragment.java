@@ -92,12 +92,10 @@ public class ChatFragment extends Fragment {
 
                 @Override
                 public void onError(WeRockApiError error) {
-                    Toast.makeText(ChatFragment.this.getActivity(), "Chat error", Toast.LENGTH_LONG);
                 }
 
                 @Override
                 public void onFailure() {
-                    Toast.makeText(ChatFragment.this.getActivity(), "Chat failed", Toast.LENGTH_LONG);
                 }
             });
         });

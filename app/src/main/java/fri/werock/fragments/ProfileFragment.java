@@ -150,12 +150,10 @@ public class ProfileFragment extends Fragment {
 
             @Override
             public void onError(WeRockApiError error) {
-                Toast.makeText(ProfileFragment.this.getActivity(), "Error", Toast.LENGTH_LONG);
             }
 
             @Override
             public void onFailure() {
-                Toast.makeText(ProfileFragment.this.getActivity(), "Failed", Toast.LENGTH_LONG);
             }
         });
 
@@ -177,12 +175,10 @@ public class ProfileFragment extends Fragment {
 
             @Override
             public void onError(WeRockApiError error) {
-                Toast.makeText(ProfileFragment.this.getActivity(), "Error", Toast.LENGTH_LONG);
             }
 
             @Override
             public void onFailure() {
-                Toast.makeText(ProfileFragment.this.getActivity(), "Failed", Toast.LENGTH_LONG);
             }
         });
 

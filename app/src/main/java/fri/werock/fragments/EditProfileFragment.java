@@ -135,12 +135,10 @@ public class EditProfileFragment extends Fragment {
 
                 @Override
                 public void onError(WeRockApiError error) {
-                    Toast.makeText(EditProfileFragment.this.getActivity(), "Error :(", Toast.LENGTH_LONG).show();
                 }
 
                 @Override
                 public void onFailure() {
-                    Toast.makeText(EditProfileFragment.this.getActivity(), "Failure :(", Toast.LENGTH_LONG).show();
                 }
             });
         });
@@ -164,24 +162,20 @@ public class EditProfileFragment extends Fragment {
 
                         final Bitmap selectedImage = BitmapFactory.decodeStream(body.byteStream());
                         myProfileImg.setImageBitmap(selectedImage);
-                        Toast.makeText(EditProfileFragment.this.getActivity(), "We downloaded the image :)", Toast.LENGTH_LONG).show();
                     }
 
                     @Override
                     public void onError(WeRockApiError error) {
-                        Toast.makeText(EditProfileFragment.this.getActivity(), "Error :(", Toast.LENGTH_LONG).show();
                     }
 
                     @Override
                     public void onFailure() {
-                        Toast.makeText(EditProfileFragment.this.getActivity(), "Failure :(", Toast.LENGTH_LONG).show();
                     }
                 });
             }
 
             @Override
             public void onError(WeRockApiError error) {
-                Toast.makeText(EditProfileFragment.this.getActivity(), "Error :(", Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -190,43 +184,6 @@ public class EditProfileFragment extends Fragment {
             }
         });
 
-//        WeRockApi.fetch(this.getAuthActivity().getWeRockApi().downloadSound(1), new WeRockApiCallback<ResponseBody>() {
-//            @Override
-//            public void onResponse(ResponseBody body) throws IOException {
-//                if(body == null) {
-//                    return;
-//                }
-//
-//                final InputStream input = body.byteStream();
-//
-//                File file = FileUtil.fileConvert(input, "Audio1", ".mp3", ".mp3");
-//                FileInputStream fileInputStream = null;
-//                try {
-//                    fileInputStream = new FileInputStream(file);
-//                } catch (FileNotFoundException e) {
-//                    e.printStackTrace();
-//                }
-//
-//                MediaPlayer mediaPlayer = new MediaPlayer();
-//                mediaPlayer.setDataSource(fileInputStream.getFD());
-//                if (mediaPlayer.getDuration() < 60000) {
-//                    View player = getLayoutInflater().inflate(R.layout.audio_player_layout, null);
-//                    audioPlayer.addPlayer(player, mediaPlayer, layout);
-//                } else {
-//                    Toast.makeText(EditProfileFragment.this.getActivity(), "Sound clip to long", Toast.LENGTH_LONG).show();
-//                }
-//            }
-//
-//            @Override
-//            public void onError(WeRockApiError error) {
-//                Toast.makeText(EditProfileFragment.this.getActivity(), "Error :(", Toast.LENGTH_LONG).show();
-//            }
-//
-//            @Override
-//            public void onFailure() {
-//                Toast.makeText(EditProfileFragment.this.getActivity(), "Failure :(", Toast.LENGTH_LONG).show();
-//            }
-//        });
 
         aboutMe.setOnFocusChangeListener((v, b) -> {
             if(b) {
@@ -317,12 +274,10 @@ public class EditProfileFragment extends Fragment {
 
                         @Override
                         public void onError(WeRockApiError error) {
-                            Toast.makeText(EditProfileFragment.this.getActivity(), "Error :(", Toast.LENGTH_LONG).show();
                         }
 
                         @Override
                         public void onFailure() {
-                            Toast.makeText(EditProfileFragment.this.getActivity(), "Failure :(", Toast.LENGTH_LONG).show();
                         }
                     });
 
