@@ -4,14 +4,24 @@ import android.content.Context;
 
 import androidx.annotation.NonNull;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
+
+import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import fri.werock.R;
 import fri.werock.models.AuthenticationToken;
+import fri.werock.models.Message;
 import fri.werock.models.User;
 import fri.werock.models.UserAccount;
+import okhttp3.ConnectionPool;
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
+import okhttp3.Protocol;
 import okhttp3.Request;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -21,7 +31,12 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
+import retrofit2.http.Part;
+import retrofit2.http.Path;
+import retrofit2.http.Streaming;
 
 public interface WeRockApi {
     static WeRockApi create(Context context) {
@@ -52,19 +67,33 @@ public interface WeRockApi {
             @Override
             public void onResponse(@NonNull Call<T> call, @NonNull Response<T> response) {
                 if(response.isSuccessful()) {
-                    callback.onResponse(response.body());
+                    try {
+                        callback.onResponse(response.body());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 } else {
-                    ApiError error = new ApiError();
                     ResponseBody responseBody = response.errorBody();
-                    if(responseBody != null) {
-                        String errorJson = null;
-                        try {
-                            errorJson = responseBody.string();
-                        } catch (IOException ignored) {}
+                    if(responseBody == null) {
+                        callback.onError(WeRockApiError.BODY_MISSING_ERROR);
+                        return;
+                    }
 
-                        if(errorJson != null) {
-                            callback.onError(error);
-                        }
+                    String errorJson = null;
+                    try {
+                        errorJson = responseBody.string();
+                    } catch (IOException ignored) {}
+
+                    if(errorJson == null || errorJson.isEmpty()) {
+                        callback.onError(WeRockApiError.BODY_MISSING_ERROR);
+                        return;
+                    }
+
+                    WeRockApiError error;
+                    try {
+                        error = new Gson().fromJson(errorJson, WeRockApiError.class);
+                    } catch (JsonSyntaxException exception) {
+                        error = WeRockApiError.FAILED_PARSING_JSON_ERROR;
                     }
 
                     callback.onError(error);
@@ -84,9 +113,38 @@ public interface WeRockApi {
     @POST("login")
     Call<AuthenticationToken> login(@Body UserAccount userAccount);
 
-    @GET("valid")
-    Call<Void> validate();
-
     @GET("user/list")
-    Call<List<User>> getUserList();
+    Call<List<User>> getUsers();
+
+    @GET("user/current")
+    Call<User> getUser();
+
+    @GET("user/{id}")
+    Call<User> getUser(@Path("id") int id);
+
+    @PUT("user/{id}")
+    Call<Void> updateUser(@Body User user);
+
+    @GET("image/download")
+    Call<ResponseBody> downloadImage();
+
+    @Multipart
+    @POST("image/upload")
+    Call<Void> uploadImage(@Part MultipartBody.Part image);
+
+    @GET("sound/download/{id}")
+    Call<ResponseBody> downloadSound(@Path("id") int id);
+
+    @Multipart
+    @POST("sound/upload/{id}")
+    Call<Void> uploadSound(@Path("id") int id, @Part MultipartBody.Part image);
+
+    @GET("chat/list")
+    Call<List<User>> getChatList();
+
+    @GET("chat/{id}")
+    Call<List<Message>> getMessages(@Path("id") int id);
+
+    @POST("chat/{id}")
+    Call<Void> addMessage(@Path("id") int id, @Body Message message);
 }

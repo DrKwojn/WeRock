@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,7 +14,7 @@ import android.widget.TextView;
 import fri.werock.R;
 import fri.werock.api.WeRockApi;
 import fri.werock.api.WeRockApiCallback;
-import fri.werock.api.ApiError;
+import fri.werock.api.WeRockApiError;
 import fri.werock.models.AuthenticationToken;
 import fri.werock.models.UserAccount;
 import fri.werock.utils.UserTokenStorage;
@@ -39,8 +40,6 @@ public class LoginActivity extends AppCompatActivity {
         UserTokenStorage userTokenStorage = new UserTokenStorage(LoginActivity.this);
         WeRockApi weRockApi = WeRockApi.create(this);
 
-        //TEST
-        //startActivity(new Intent(getApplicationContext(), MyProfileActivity.class));
 
         this.editUsername = this.findViewById(R.id.edit_email);
         this.editPassword = this.findViewById(R.id.edit_username);
@@ -59,12 +58,14 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(AuthenticationToken authenticationToken) {
                     userTokenStorage.store(authenticationToken.getAccessToken());
-                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    startActivity(new Intent(getApplicationContext(), AuthenticatedActivity.class));
                     LoginActivity.this.finish();
                 }
 
                 @Override
-                public void onError(ApiError error) {
+                public void onError(WeRockApiError error) {
+
+                    Log.d("MSG", error.toString());
                     //If username not found
                     if(!userAccount.getUsername().equals(user)) {
                         usernameErr.setText("Username not found");
@@ -90,10 +91,7 @@ public class LoginActivity extends AppCompatActivity {
 
         this.buttonRegister = this.findViewById(R.id.register_button);
         this.buttonRegister.setOnClickListener(view -> {
-
-            //TEST
-            //startActivity(new Intent(this.getApplicationContext(), RegisterActivity.class));
-            startActivity(new Intent(this.getApplicationContext(), MyProfileActivity.class));
+            startActivity(new Intent(this.getApplicationContext(), RegisterActivity.class));
         });
     }
     void showDialog(){

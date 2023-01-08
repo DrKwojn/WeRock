@@ -10,6 +10,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
@@ -17,6 +18,7 @@ import androidx.constraintlayout.widget.ConstraintSet;
 import java.util.concurrent.TimeUnit;
 
 import fri.werock.R;
+import fri.werock.fragments.EditProfileFragment;
 
 public class AudioPlayer {
     private int player_id;
@@ -122,6 +124,7 @@ public class AudioPlayer {
     }
 
     void showDialog(MediaPlayer mediaPlayer, ConstraintLayout layout, int del_id){
+
         final Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(true);

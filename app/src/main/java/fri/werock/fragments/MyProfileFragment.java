@@ -1,41 +1,60 @@
-package fri.werock.activities;
+package fri.werock.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
+import com.google.android.youtube.player.YouTubePlayerFragment;
+import com.google.android.youtube.player.YouTubePlayerSupportFragment;
 import com.google.android.youtube.player.YouTubePlayerView;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import fri.werock.R;
-import fri.werock.databinding.ActivityMyprofileBinding;
 
-public class MyProfileActivity extends YouTubeBaseActivity {
-
-    private ActivityMyprofileBinding binding;
-
+public class MyProfileFragment extends YouTubePlayerFragment {
     private Button editProfile;
 
+    public MyProfileFragment() {
+        // Required empty public constructor
+    }
+
+    public static MyProfileFragment newInstance() {
+        return new MyProfileFragment();
+    }
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
 
-        binding = ActivityMyprofileBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_my_profile, container, false);
+    }
 
-        editProfile = findViewById(R.id.edit_profile);
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
-        YouTubePlayerView youTubePlayerView = findViewById(R.id.myVideo);
+
+        editProfile = getActivity().findViewById(R.id.edit_profile);
+
+        YouTubePlayerView youTubePlayerView = getActivity().findViewById(R.id.myVideo);
 
         String funnyvid = "https://youtu.be/dQw4w9WgXcQ";
         //API key needs to be stored elsewhere
@@ -56,19 +75,14 @@ public class MyProfileActivity extends YouTubeBaseActivity {
                 });
 
 
-        editProfile.setOnClickListener(view -> {
-            startActivity(new Intent(getApplicationContext(), EditProfileActivity.class));
+        editProfile.setOnClickListener(v-> {
+            startActivity(new Intent(getActivity().getApplicationContext(), EditProfileFragment.class));
         });
 
 
-
     }
 
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-    }
 
     public String ytLinkParser(String url){
 
@@ -82,5 +96,4 @@ public class MyProfileActivity extends YouTubeBaseActivity {
         }
         return null;
     }
-
 }

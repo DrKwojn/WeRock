@@ -7,31 +7,20 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:background="@color/white"
-    tools:context=".activities.EditProfileActivity">
+    tools:context=".fragments.ProfileFragment">
 
     <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/toolbar5"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
-            <ImageView
-                android:id="@+id/myProfilePic"
-                android:layout_width="0dp"
-                android:layout_height="220dp"
-                android:src="@drawable/logo"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/myProfile_lines"
@@ -43,21 +32,15 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/profile_aboutme_view" />
 
-            <TextView
-                android:id="@+id/profile_nameview"
+            <ImageView
+                android:id="@+id/myProfilePic"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                android:fontFamily="sans-serif"
-                android:gravity="center"
-                android:text="My Name"
-                android:textColor="@color/black"
-                android:textSize="20sp"
+                android:layout_height="220dp"
+                android:src="@drawable/logo"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/myProfilePic" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/profile_tagview"
@@ -87,19 +70,21 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/profile_tagview" />
 
-            <Button
-                android:id="@+id/edit_profile"
+            <TextView
+                android:id="@+id/profile_nameview"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:background="@color/add_media_color"
-                android:text="Edit Profile"
-                android:textColor="@color/white"
+                android:fontFamily="sans-serif"
+                android:gravity="center"
+                android:text="My Name"
+                android:textColor="@color/black"
+                android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/profile_aboutme_view" />
+                app:layout_constraintTop_toBottomOf="@+id/myProfilePic" />
 
             <TextView
                 android:id="@+id/textView3"
@@ -112,9 +97,19 @@
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edit_profile" />
+                app:layout_constraintTop_toBottomOf="@+id/profile_aboutme_view" />
+
+            <FrameLayout
+                android:id="@+id/myVideo"
+                android:layout_width="0dp"
+                android:layout_height="220dp"
+                android:layout_marginTop="32dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/audioContainer" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/audioContainer"
@@ -128,16 +123,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView3">
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <VideoView
-                android:id="@+id/myVideo"
-                android:layout_width="0dp"
-                android:layout_height="220dp"
-                android:layout_marginTop="24dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/audioContainer" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
@@ -154,21 +139,10 @@
         app:title="WeRock"
         app:titleTextColor="@color/black" />
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar5"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
     <Button
-        android:id="@+id/message_myprof"
-        android:layout_width="26dp"
-        android:layout_height="26dp"
+        android:id="@+id/start_chat"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/chat_icon_black"
