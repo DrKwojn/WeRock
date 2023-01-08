@@ -144,7 +144,8 @@ public class EditProfileFragment extends Fragment {
             @Override
             public void onResponse(ResponseBody body) throws IOException {
                 final InputStream input = body.byteStream();
-                audio1[0] = readIs(input);
+                audio1[0] = FileUtil.fileConvert(input, "Audio1", ".mp3", ".mp3");
+                Log.d("Tost", audio1[0].getName());
                 Toast.makeText(EditProfileFragment.this.getActivity(), "We downloaded the image :)", Toast.LENGTH_LONG).show();
 
             }

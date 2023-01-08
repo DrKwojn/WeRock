@@ -36,4 +36,22 @@ public class FileUtil {
         RequestBody requestBody = RequestBody.create(MediaType.parse(mediaType), file);
         return MultipartBody.Part.createFormData("file", file.getName(), requestBody);
     }
+
+    public static File fileConvert(InputStream inputStream, String filename, String extension, String mediaType) {
+        File file = null;
+        try {
+            file = File.createTempFile(filename, extension);
+            file.deleteOnExit();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try (FileOutputStream outputStream = new FileOutputStream(file)) {
+            IOUtils.copyStream(inputStream, outputStream);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return file;
+    }
 }
