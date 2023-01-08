@@ -112,6 +112,8 @@ public class EditProfileFragment extends Fragment {
         myProfileImg = this.getActivity().findViewById(R.id.myProfileImg);
         editLink = this.getActivity().findViewById(R.id.videoLink);
 
+
+
         WeRockApi.fetch(this.getAuthActivity().getWeRockApi().downloadImage(), new WeRockApiCallback<ResponseBody>() {
             @Override
             public void onResponse(ResponseBody body) {
@@ -284,17 +286,6 @@ public class EditProfileFragment extends Fragment {
         dialog.show();
     }
 
-    public String parseYtLink(String url){
-        String pattern = "https?:\\/\\/(?:[0-9A-Z-]+\\.)?(?:youtu\\.be\\/|youtube\\.com\\S*[^\\w\\-\\s])([\\w\\-]{11})(?=[^\\w\\-]|$)(?![?=&+%\\w]*(?:['\"][^<>]*>|<\\/a>))[?=&+%\\w]*";
-
-        Pattern compiledPattern = Pattern.compile(pattern,
-                Pattern.CASE_INSENSITIVE);
-        Matcher matcher = compiledPattern.matcher(url);
-        if (matcher.find()) {
-            return matcher.group(1);
-        }
-        return null;
-    }
 
     public static List<String> parseTags(final String input) {
 
