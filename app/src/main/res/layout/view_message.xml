@@ -9,15 +9,34 @@
     android:paddingVertical="12dp">
 
     <LinearLayout
+        android:id="@+id/message_wrapper_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:orientation="horizontal"
+        android:padding="8dp"
+        android:background="#5761d4">
+
+        <TextView
+            android:id="@+id/message_left"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            android:text="Example"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/message_wrapper_right"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
         android:orientation="horizontal"
         android:padding="8dp"
-        android:background="#4444AA">
+        android:background="#c578cc">
 
         <TextView
-            android:id="@+id/message"
+            android:id="@+id/message_right"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="16sp"

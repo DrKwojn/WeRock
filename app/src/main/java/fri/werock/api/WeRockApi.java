@@ -146,5 +146,5 @@ public interface WeRockApi {
     Call<List<Message>> getMessages(@Path("id") int id);
 
     @POST("chat/{id}")
-    Call<Void> addMessage(@Path("id") int id, @Body String message);
+    Call<Void> addMessage(@Path("id") int id, @Body Message message);
 }

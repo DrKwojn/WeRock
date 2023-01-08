@@ -17,12 +17,14 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <EditText
+            android:id="@+id/input_text"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textColor="@color/black"/>
 
         <Button
+            android:id="@+id/send_button"
             android:layout_width="64dp"
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/search"

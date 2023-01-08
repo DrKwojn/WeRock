@@ -12,6 +12,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -27,6 +30,9 @@ import fri.werock.models.User;
 
 public class ChatFragment extends Fragment {
     private RecyclerView recyclerView;
+
+    private EditText inputText;
+    private Button sendButton;
 
     private static final String ARG_ID = "id";
 
@@ -64,12 +70,49 @@ public class ChatFragment extends Fragment {
         recyclerView = view.findViewById(R.id.message_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        WeRockApi.fetch(((AuthenticatedActivity)this.getActivity()).getWeRockApi().getMessages(id), new WeRockApiCallback<List<Message>>() {
+        inputText = view.findViewById(R.id.input_text);
+        sendButton = view.findViewById(R.id.send_button);
+        sendButton.setOnClickListener(v -> {
+            Message message = new Message();
+            message.setText(inputText.getText().toString());
+            inputText.setText("");
+            WeRockApi.fetch(((AuthenticatedActivity)this.getActivity()).getWeRockApi().addMessage(this.id, message), new WeRockApiCallback<Void>() {
+                @Override
+                public void onResponse(Void v) {
+                    ChatFragment.this.updateMessages();
+                }
+
+                @Override
+                public void onError(WeRockApiError error) {
+                    Toast.makeText(ChatFragment.this.getActivity(), "Chat error", Toast.LENGTH_LONG);
+                }
+
+                @Override
+                public void onFailure() {
+                    Toast.makeText(ChatFragment.this.getActivity(), "Chat failed", Toast.LENGTH_LONG);
+                }
+            });
+        });
+
+        this.updateMessages();
+    }
+
+    public void updateMessages() {
+        boolean updateScroll = false;
+        int position = ((LinearLayoutManager)recyclerView.getLayoutManager()).findLastVisibleItemPosition();
+        if(position == RecyclerView.NO_POSITION || position == recyclerView.getAdapter().getItemCount() - 1) {
+            updateScroll = true;
+        }
+
+        boolean finalUpdateScroll = updateScroll;
+        WeRockApi.fetch(((AuthenticatedActivity)this.getActivity()).getWeRockApi().getMessages(this.id), new WeRockApiCallback<List<Message>>() {
             @Override
             public void onResponse(List<Message> messages) {
-                MessageAdapter adapter = new MessageAdapter(ChatFragment.this.getActivity(), messages);
+                MessageAdapter adapter = new MessageAdapter(ChatFragment.this.getActivity(), ChatFragment.this.id, messages);
                 recyclerView.setAdapter(adapter);
-                recyclerView.scrollToPosition(adapter.getItemCount() - 1);
+                if(finalUpdateScroll) {
+                    recyclerView.scrollToPosition(adapter.getItemCount() - 1);
+                }
             }
 
             @Override
