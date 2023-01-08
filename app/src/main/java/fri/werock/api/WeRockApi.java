@@ -15,6 +15,7 @@ import java.util.concurrent.TimeUnit;
 
 import fri.werock.R;
 import fri.werock.models.AuthenticationToken;
+import fri.werock.models.Message;
 import fri.werock.models.User;
 import fri.werock.models.UserAccount;
 import okhttp3.ConnectionPool;
@@ -133,4 +134,13 @@ public interface WeRockApi {
     @Multipart
     @POST("sound/upload/{id}")
     Call<Void> uploadSound(@Path("id") int id, @Part MultipartBody.Part image);
+
+    @GET("chat/list")
+    Call<List<User>> getChatList();
+
+    @GET("chat/{id}")
+    Call<List<Message>> getMessages(@Path("id") int id);
+
+    @POST("chat/{id}")
+    Call<Void> addMessage(@Path("id") int id, @Body String message);
 }
