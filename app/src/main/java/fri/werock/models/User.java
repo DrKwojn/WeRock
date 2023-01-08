@@ -7,7 +7,13 @@ public class User {
 
     private String email;
 
+    private String fullName;
+
     private String description;
+
+    private String tags;
+
+    private String youtubeKey;
 
     public int getID() {
         return id;
@@ -33,11 +39,35 @@ public class User {
         this.email = email;
     }
 
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
     public String getDescription() {
         return this.description;
     }
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getTags() {
+        return tags;
+    }
+
+    public void setTags(String tags) {
+        this.tags = tags;
+    }
+
+    public String getYoutubeKey() {
+        return youtubeKey;
+    }
+
+    public void setYoutubeKey(String youtubeKey) {
+        this.youtubeKey = youtubeKey;
     }
 }

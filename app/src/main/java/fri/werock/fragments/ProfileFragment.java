@@ -39,7 +39,7 @@ import fri.werock.api.WeRockApiCallback;
 import fri.werock.api.WeRockApiError;
 import fri.werock.models.User;
 
-public class ProfileFragment extends YouTubePlayerSupportFragmentX {
+public class ProfileFragment extends Fragment {
     private int id;
 
     private TextView name;

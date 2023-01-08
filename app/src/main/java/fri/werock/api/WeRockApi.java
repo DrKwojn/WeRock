@@ -123,4 +123,11 @@ public interface WeRockApi {
     @Multipart
     @POST("image/upload")
     Call<Void> uploadImage(@Part MultipartBody.Part image);
+
+    @GET("sound/download/{id}")
+    Call<ResponseBody> downloadImage(@Path("id") int id);
+
+    @Multipart
+    @POST("sound/upload/{id}")
+    Call<Void> uploadImage(@Path("id") int id, @Part MultipartBody.Part image);
 }
