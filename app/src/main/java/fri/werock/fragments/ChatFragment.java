@@ -73,6 +73,11 @@ public class ChatFragment extends Fragment {
         inputText = view.findViewById(R.id.input_text);
         sendButton = view.findViewById(R.id.send_button);
         sendButton.setOnClickListener(v -> {
+            String text = inputText.getText().toString().trim();
+            if(text.isEmpty()) {
+                return;
+            }
+
             Message message = new Message();
             if(inputText.getText().toString().trim().equals("")){
                 return;

@@ -47,12 +47,22 @@ public class ExploreUserAdapter extends RecyclerView.Adapter<ExploreUserAdapter.
     @Override
     public void onBindViewHolder(@NonNull ExploreUserAdapter.ExploreUserViewHolder holder, int position) {
         holder.id = users.get(position).getID();
-        holder.name.setText(users.get(position).getUsername());
+
+        String fullName = users.get(position).getFullName();
+        if(fullName == null) {
+            fullName = users.get(position).getUsername();
+        }
+
+        holder.name.setText(fullName);
         if(users.get(position).getDescription() != null) {
             holder.description.setText(users.get(position).getDescription());
         } else {
             //TODO: Remove this for testing only
-            holder.description.setText("No description");
+            holder.description.setText("User has no description set");
+        }
+
+        if(users.get(position).getTags() != null) {
+            holder.description.setText(users.get(position).getTags());
         }
 
         if(listener != null) {
@@ -71,12 +81,14 @@ public class ExploreUserAdapter extends RecyclerView.Adapter<ExploreUserAdapter.
         private int id;
         private TextView name;
         private TextView description;
+        private TextView tags;
 
         public ExploreUserViewHolder(@NonNull View itemView) {
             super(itemView);
 
             this.name = itemView.findViewById(R.id.name);
             this.description = itemView.findViewById(R.id.description);
+            this.tags = itemView.findViewById(R.id.tags);
         }
     }
 }

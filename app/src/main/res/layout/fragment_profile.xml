@@ -43,7 +43,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/profile_tagview"
+                android:id="@+id/tags"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -57,7 +57,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/profile_nameview" />
 
             <TextView
-                android:id="@+id/profile_aboutme_view"
+                android:id="@+id/description"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -71,7 +71,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/profile_tagview" />
 
             <TextView
-                android:id="@+id/profile_nameview"
+                android:id="@+id/name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"

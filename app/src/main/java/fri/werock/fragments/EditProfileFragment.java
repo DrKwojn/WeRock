@@ -57,14 +57,14 @@ import okhttp3.ResponseBody;
 import static android.app.Activity.RESULT_OK;
 
 public class EditProfileFragment extends Fragment {
-    private Button logout;
+    private User user;
+
+    private Button saveButton, logout;
     private TextView addMedia, editPicture;
     private ConstraintLayout layout;
 
     private EditText aboutMe, editTags, editLink, name;
     private ImageView myProfileImg;
-
-    private Button backButton;
 
     private final int PICK_AUDIO = 1;
     private final int PICK_IMAGE = 2;
@@ -116,15 +116,44 @@ public class EditProfileFragment extends Fragment {
         myProfileImg = this.getActivity().findViewById(R.id.myProfileImg);
         editLink = this.getActivity().findViewById(R.id.videoLink);
 
+        saveButton = this.getAuthActivity().findViewById(R.id.send_button);
+        saveButton.setOnClickListener(v -> {
+            if(user == null) {
+                return;
+            }
+
+            user.setFullName(EditProfileFragment.this.name.getText().toString());
+            user.setDescription(EditProfileFragment.this.aboutMe.getText().toString());
+            user.setTags(EditProfileFragment.this.editTags.getText().toString());
+            user.setYoutubeKey(EditProfileFragment.this.editLink.getText().toString());
+
+            WeRockApi.fetch(this.getAuthActivity().getWeRockApi().updateUser(user), new WeRockApiCallback<Void>() {
+                @Override
+                public void onResponse(Void v) {
+
+                }
+
+                @Override
+                public void onError(WeRockApiError error) {
+                    Toast.makeText(EditProfileFragment.this.getActivity(), "Error :(", Toast.LENGTH_LONG).show();
+                }
+
+                @Override
+                public void onFailure() {
+                    Toast.makeText(EditProfileFragment.this.getActivity(), "Failure :(", Toast.LENGTH_LONG).show();
+                }
+            });
+        });
+
         WeRockApi.fetch(this.getAuthActivity().getWeRockApi().getUser(), new WeRockApiCallback<User>() {
 
             @Override
             public void onResponse(User user) {
+                EditProfileFragment.this.user = user;
                 name.setText(user.getFullName());
                 editTags.setText(user.getTags());
                 aboutMe.setText(user.getDescription());
                 editLink.setText(user.getYoutubeKey());
-
             }
 
             @Override
