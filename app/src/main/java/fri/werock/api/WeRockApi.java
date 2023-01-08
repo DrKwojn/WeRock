@@ -67,7 +67,11 @@ public interface WeRockApi {
             @Override
             public void onResponse(@NonNull Call<T> call, @NonNull Response<T> response) {
                 if(response.isSuccessful()) {
-                    callback.onResponse(response.body());
+                    try {
+                        callback.onResponse(response.body());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 } else {
                     ResponseBody responseBody = response.errorBody();
                     if(responseBody == null) {
