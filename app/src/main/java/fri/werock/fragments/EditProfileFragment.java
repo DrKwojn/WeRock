@@ -116,7 +116,7 @@ public class EditProfileFragment extends Fragment {
         myProfileImg = this.getActivity().findViewById(R.id.myProfileImg);
         editLink = this.getActivity().findViewById(R.id.videoLink);
 
-        saveButton = this.getAuthActivity().findViewById(R.id.send_button);
+        saveButton = this.getAuthActivity().findViewById(R.id.save_profile_changes);
         saveButton.setOnClickListener(v -> {
             if(user == null) {
                 return;
