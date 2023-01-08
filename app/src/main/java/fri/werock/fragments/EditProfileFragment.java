@@ -83,6 +83,7 @@ public class EditProfileFragment extends Fragment {
         if(activity == null) {
             //TODO: This is an error ?
             return;
+
         }
 
         super.onCreate(savedInstanceState);
