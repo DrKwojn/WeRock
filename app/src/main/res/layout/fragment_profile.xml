@@ -27,18 +27,19 @@
                 android:layout_width="0dp"
                 android:layout_height="120dp"
                 android:src="@drawable/lines2"
+                app:layout_constraintBottom_toTopOf="@+id/myVideo"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/profile_aboutme_view" />
+                app:layout_constraintStart_toStartOf="parent" />
 
             <ImageView
                 android:id="@+id/myProfilePic"
                 android:layout_width="0dp"
                 android:layout_height="220dp"
+                android:layout_marginTop="8dp"
                 android:src="@drawable/logo"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -53,22 +54,24 @@
                 android:text="#My Tags"
                 android:textColor="@color/add_media_color"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/profile_nameview" />
+                app:layout_constraintTop_toBottomOf="@+id/name" />
 
             <TextView
                 android:id="@+id/description"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:text="About Me"
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/profile_tagview" />
+                app:layout_constraintTop_toBottomOf="@+id/tags" />
 
             <TextView
                 android:id="@+id/name"
@@ -91,6 +94,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:text="@string/mydemos_txt"
                 android:textColor="@color/black"
@@ -98,15 +102,15 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/myProfile_lines" />
+                app:layout_constraintTop_toBottomOf="@+id/description" />
 
             <FrameLayout
                 android:id="@+id/myVideo"
                 android:layout_width="0dp"
                 android:layout_height="220dp"
-                android:layout_marginTop="136dp"
+                android:layout_marginTop="24dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/audioContainer" />
 
