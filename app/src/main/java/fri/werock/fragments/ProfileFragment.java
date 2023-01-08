@@ -1,6 +1,8 @@
 package fri.werock.fragments;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,6 +42,7 @@ import fri.werock.api.WeRockApi;
 import fri.werock.api.WeRockApiCallback;
 import fri.werock.api.WeRockApiError;
 import fri.werock.models.User;
+import okhttp3.ResponseBody;
 
 public class ProfileFragment extends Fragment {
     private int id;
@@ -46,6 +50,7 @@ public class ProfileFragment extends Fragment {
     private TextView name;
     private TextView description;
     private TextView tags;
+    private ImageView image;
 
     private Button chat;
     public ProfileFragment() {}
@@ -85,6 +90,7 @@ public class ProfileFragment extends Fragment {
         name = getActivity().findViewById(R.id.name);
         description = getActivity().findViewById(R.id.description);
         tags = getActivity().findViewById(R.id.tags);
+        image = getActivity().findViewById(R.id.myProfilePic);
 
         WeRockApi.fetch(((AuthenticatedActivity)this.getActivity()).getWeRockApi().getUser(id), new WeRockApiCallback<User>() {
             @Override
@@ -92,6 +98,29 @@ public class ProfileFragment extends Fragment {
                 name.setText(user.getFullName() != null ? user.getFullName() : user.getUsername());
                 description.setText(user.getDescription() != null ? user.getDescription() : "User has no description");
                 tags.setText(user.getTags());
+
+                WeRockApi.fetch(((AuthenticatedActivity)ProfileFragment.this.getActivity()).getWeRockApi().downloadImage(user.getID()), new WeRockApiCallback<ResponseBody>() {
+                    @Override
+                    public void onResponse(ResponseBody body) {
+                        if(body == null) {
+                            return;
+                        }
+
+                        final Bitmap selectedImage = BitmapFactory.decodeStream(body.byteStream());
+                        image.setImageBitmap(selectedImage);
+                    }
+
+                    @Override
+                    public void onError(WeRockApiError error) {
+                        Toast.makeText(((AuthenticatedActivity)ProfileFragment.this.getActivity()), "Error :(", Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onFailure() {
+                        Toast.makeText(((AuthenticatedActivity)ProfileFragment.this.getActivity()), "Failure :(", Toast.LENGTH_LONG).show();
+                    }
+                });
+
                 String key;
                 if(user.getYoutubeKey()!=null){
                    key = user.getYoutubeKey();

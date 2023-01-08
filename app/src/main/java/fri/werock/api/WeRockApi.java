@@ -125,8 +125,8 @@ public interface WeRockApi {
     @PUT("user/{id}")
     Call<Void> updateUser(@Body User user);
 
-    @GET("image/download")
-    Call<ResponseBody> downloadImage();
+    @GET("image/download/{id}")
+    Call<ResponseBody> downloadImage(@Path("id") int id);
 
     @Multipart
     @POST("image/upload")

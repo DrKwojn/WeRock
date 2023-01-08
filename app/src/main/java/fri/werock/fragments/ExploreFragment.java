@@ -56,7 +56,7 @@ public class ExploreFragment extends Fragment {
         WeRockApi.fetch(((AuthenticatedActivity)this.getActivity()).getWeRockApi().getUsers(), new WeRockApiCallback<List<User>>() {
             @Override
             public void onResponse(List<User> users) {
-                ExploreUserAdapter adapter = new ExploreUserAdapter(ExploreFragment.this.getActivity(), users);
+                ExploreUserAdapter adapter = new ExploreUserAdapter(((AuthenticatedActivity)ExploreFragment.this.getActivity()), users);
                 adapter.setOnUserClickListener(id -> {
                     ProfileFragment profileFragment = ProfileFragment.newInstance(id);
                     FragmentManager fragmentManager = ExploreFragment.this.getActivity().getSupportFragmentManager();

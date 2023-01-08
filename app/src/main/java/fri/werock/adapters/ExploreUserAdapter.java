@@ -1,10 +1,14 @@
 package fri.werock.adapters;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -14,21 +18,27 @@ import java.util.List;
 
 import fri.werock.R;
 import fri.werock.activities.AuthenticatedActivity;
+import fri.werock.api.WeRockApi;
+import fri.werock.api.WeRockApiCallback;
+import fri.werock.api.WeRockApiError;
+import fri.werock.fragments.EditProfileFragment;
+import fri.werock.fragments.ExploreFragment;
 import fri.werock.fragments.ProfileFragment;
 import fri.werock.models.User;
+import okhttp3.ResponseBody;
 
 public class ExploreUserAdapter extends RecyclerView.Adapter<ExploreUserAdapter.ExploreUserViewHolder> {
     public interface OnUserClickListener {
         void onUserClick(int id);
     }
 
-    private Context context;
+    private AuthenticatedActivity activity;
     private List<User> users;
 
     private OnUserClickListener listener;
 
-    public ExploreUserAdapter(Context context, List<User> users) {
-        this.context = context;
+    public ExploreUserAdapter(AuthenticatedActivity activity, List<User> users) {
+        this.activity = activity;
         this.users = users;
     }
 
@@ -39,7 +49,7 @@ public class ExploreUserAdapter extends RecyclerView.Adapter<ExploreUserAdapter.
     @NonNull
     @Override
     public ExploreUserAdapter.ExploreUserViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater inflater = LayoutInflater.from(context);
+        LayoutInflater inflater = LayoutInflater.from(activity);
         View view = inflater.inflate(R.layout.view_explore_user, parent, false);
         return new ExploreUserViewHolder(view);
     }
@@ -65,6 +75,28 @@ public class ExploreUserAdapter extends RecyclerView.Adapter<ExploreUserAdapter.
             holder.description.setText(users.get(position).getTags());
         }
 
+        WeRockApi.fetch(this.activity.getWeRockApi().downloadImage(users.get(position).getID()), new WeRockApiCallback<ResponseBody>() {
+            @Override
+            public void onResponse(ResponseBody body) {
+                if(body == null) {
+                    return;
+                }
+
+                final Bitmap selectedImage = BitmapFactory.decodeStream(body.byteStream());
+                holder.image.setImageBitmap(selectedImage);
+            }
+
+            @Override
+            public void onError(WeRockApiError error) {
+                Toast.makeText(ExploreUserAdapter.this.activity, "Error :(", Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onFailure() {
+                Toast.makeText(ExploreUserAdapter.this.activity, "Failure :(", Toast.LENGTH_LONG).show();
+            }
+        });
+
         if(listener != null) {
             holder.itemView.setOnClickListener(v -> {
                 listener.onUserClick(holder.id);
@@ -82,6 +114,7 @@ public class ExploreUserAdapter extends RecyclerView.Adapter<ExploreUserAdapter.
         private TextView name;
         private TextView description;
         private TextView tags;
+        private ImageView image;
 
         public ExploreUserViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -89,6 +122,7 @@ public class ExploreUserAdapter extends RecyclerView.Adapter<ExploreUserAdapter.
             this.name = itemView.findViewById(R.id.name);
             this.description = itemView.findViewById(R.id.description);
             this.tags = itemView.findViewById(R.id.tags);
+            image = itemView.findViewById(R.id.profile_image);
         }
     }
 }
