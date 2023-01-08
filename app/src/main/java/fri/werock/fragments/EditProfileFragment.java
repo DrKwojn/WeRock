@@ -29,11 +29,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.LongFunction;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -56,7 +61,7 @@ public class EditProfileFragment extends Fragment {
     private TextView addMedia, editPicture;
     private ConstraintLayout layout;
 
-    private EditText aboutMe, editTags, editLink;
+    private EditText aboutMe, editTags, editLink, name;
     private ImageView myProfileImg;
 
     private Button backButton;
@@ -100,9 +105,10 @@ public class EditProfileFragment extends Fragment {
             return;
 
         }
+        final File[] audio1 = new File[1];
+        final File[] audio2 = new File[1];
 
-
-
+        name =  this.getActivity().findViewById(R.id.edit_user_input);
         addMedia = this.getActivity().findViewById(R.id.addMedia);
         editPicture = this.getActivity().findViewById(R.id.edit_profile_pic);
         layout = this.getActivity().findViewById(R.id.audioContainer);
@@ -112,7 +118,66 @@ public class EditProfileFragment extends Fragment {
         myProfileImg = this.getActivity().findViewById(R.id.myProfileImg);
         editLink = this.getActivity().findViewById(R.id.videoLink);
 
+        WeRockApi.fetch(this.getAuthActivity().getWeRockApi().getUser(), new WeRockApiCallback<User>() {
 
+            @Override
+            public void onResponse(User user) {
+                name.setText(user.getFullName());
+                editTags.setText(user.getTags());
+                aboutMe.setText(user.getDescription());
+                editLink.setText(user.getYoutubeKey());
+
+            }
+
+            @Override
+            public void onError(WeRockApiError error) {
+                Toast.makeText(EditProfileFragment.this.getActivity(), "Error :(", Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onFailure() {
+                Toast.makeText(EditProfileFragment.this.getActivity(), "Failure :(", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        WeRockApi.fetch(this.getAuthActivity().getWeRockApi().downloadSound(1), new WeRockApiCallback<ResponseBody>() {
+            @Override
+            public void onResponse(ResponseBody body) throws IOException {
+                final InputStream input = body.byteStream();
+                audio1[0] = readIs(input);
+                Toast.makeText(EditProfileFragment.this.getActivity(), "We downloaded the image :)", Toast.LENGTH_LONG).show();
+
+            }
+
+            @Override
+            public void onError(WeRockApiError error) {
+                Toast.makeText(EditProfileFragment.this.getActivity(), "Error :(", Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onFailure() {
+                Toast.makeText(EditProfileFragment.this.getActivity(), "Failure :(", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        WeRockApi.fetch(this.getAuthActivity().getWeRockApi().downloadSound(2), new WeRockApiCallback<ResponseBody>() {
+            @Override
+            public void onResponse(ResponseBody body) throws IOException {
+                final InputStream input = body.byteStream();
+                audio2[0] = readIs(input);
+                Toast.makeText(EditProfileFragment.this.getActivity(), "We downloaded the image :)", Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onError(WeRockApiError error) {
+                Toast.makeText(EditProfileFragment.this.getActivity(), "Error :(", Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onFailure() {
+                Toast.makeText(EditProfileFragment.this.getActivity(), "Failure :(", Toast.LENGTH_LONG).show();
+            }
+        });
 
         WeRockApi.fetch(this.getAuthActivity().getWeRockApi().downloadImage(), new WeRockApiCallback<ResponseBody>() {
             @Override
@@ -132,6 +197,30 @@ public class EditProfileFragment extends Fragment {
                 Toast.makeText(EditProfileFragment.this.getActivity(), "Failure :(", Toast.LENGTH_LONG).show();
             }
         });
+
+        /*
+        if (audio1[0]!=null){
+            FileInputStream inputStream = null;
+            try {
+                inputStream = new FileInputStream(audio1[0]);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            try {
+                mediaPlayer.setDataSource(inputStream.getFD());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            MediaPlayer mediaPlayer = MediaPlayer.create(this.getActivity().getApplicationContext());
+            if (mediaPlayer.getDuration() < 60000) {
+                View player = getLayoutInflater().inflate(R.layout.audio_player_layout, null);
+                audioPlayer.addPlayer(player, mediaPlayer, layout);
+
+            } else {
+                showDialog();
+            }
+        }
+        */
 
         aboutMe.setOnFocusChangeListener((v, b) -> {
             if(b) {
@@ -296,6 +385,30 @@ public class EditProfileFragment extends Fragment {
             allMatches.add(matcher.group());
         }
         return allMatches;
+    }
+
+    public static File readIs(InputStream input) throws IOException {
+        File file;
+        try {
+            file = new File("/", "cacheFileAppeal.srl");
+            try (OutputStream output = new FileOutputStream(file)) {
+                byte[] buffer = new byte[4 * 1024]; // or other buffer size
+                int read;
+
+                while ((read = input.read(buffer)) != -1) {
+                    output.write(buffer, 0, read);
+                }
+
+                output.flush();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } finally {
+            input.close();
+        }
+        return file;
     }
 
 }
