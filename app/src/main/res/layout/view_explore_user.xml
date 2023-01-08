@@ -16,7 +16,7 @@
         <ImageView
             android:id="@+id/profile_image"
             android:layout_width="match_parent"
-            android:layout_height="181dp"
+            android:layout_height="200dp"
             android:contentDescription="@string/img_desc_logo"
             android:src="@drawable/logo"
             app:layout_constraintBottom_toBottomOf="parent"
