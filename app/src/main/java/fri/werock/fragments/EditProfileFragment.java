@@ -91,6 +91,7 @@ public class EditProfileFragment extends Fragment {
         if(activity == null) {
             //TODO: This is an error ?
             return;
+
         }
 
         addMedia = this.getActivity().findViewById(R.id.addMedia);
