@@ -92,6 +92,31 @@ public class ProfileFragment extends Fragment {
                 name.setText(user.getFullName() != null ? user.getFullName() : user.getUsername());
                 description.setText(user.getDescription() != null ? user.getDescription() : "User has no description");
                 tags.setText(user.getTags());
+                String key;
+                if(user.getYoutubeKey()!=null){
+                   key = user.getYoutubeKey();
+                }else{
+                    key = "https://youtu.be/dQw4w9WgXcQ";
+                }
+                YouTubePlayerSupportFragmentX ytvid = YouTubePlayerSupportFragmentX.newInstance();
+
+                FragmentManager fragmentManager = ProfileFragment.this.getChildFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.myVideo, ytvid).commit();
+                ytvid.initialize("AIzaSyBq3HdLDiOXupsQ-dMvzPTNS1MJB2kKlqc",
+                        new YouTubePlayer.OnInitializedListener() {
+                            @Override
+                            public void onInitializationSuccess(YouTubePlayer.Provider provider,
+                                                                YouTubePlayer youTubePlayer, boolean b) {
+
+                                youTubePlayer.cueVideo(ytLinkParser(key));
+                            }
+
+                            @Override
+                            public void onInitializationFailure(YouTubePlayer.Provider provider,
+                                                                YouTubeInitializationResult youTubeInitializationResult) {
+                                Log.d("FAIL", youTubeInitializationResult.toString());
+                            }
+                        });
             }
 
             @Override
@@ -113,27 +138,27 @@ public class ProfileFragment extends Fragment {
             fragmentManager.beginTransaction().replace(R.id.fragment_container, chatFragment).commit();
         });
 
-        String funnyvid = "https://youtu.be/dQw4w9WgXcQ";
+        WeRockApi.fetch(((AuthenticatedActivity)this.getActivity()).getWeRockApi().getUser(id), new WeRockApiCallback<User>() {
+            @Override
+            public void onResponse(User user) {
+                name.setText(user.getFullName() != null ? user.getFullName() : user.getUsername());
+                description.setText(user.getDescription() != null ? user.getDescription() : "User has no description");
+                tags.setText(user.getTags());
+            }
 
-        YouTubePlayerSupportFragmentX ytvid = YouTubePlayerSupportFragmentX.newInstance();
+            @Override
+            public void onError(WeRockApiError error) {
+                Toast.makeText(ProfileFragment.this.getActivity(), "Error", Toast.LENGTH_LONG);
+            }
 
-        FragmentManager fragmentManager = this.getChildFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.myVideo, ytvid).commit();
-        ytvid.initialize("AIzaSyBq3HdLDiOXupsQ-dMvzPTNS1MJB2kKlqc",
-                new YouTubePlayer.OnInitializedListener() {
-                    @Override
-                    public void onInitializationSuccess(YouTubePlayer.Provider provider,
-                                                        YouTubePlayer youTubePlayer, boolean b) {
+            @Override
+            public void onFailure() {
+                Toast.makeText(ProfileFragment.this.getActivity(), "Failed", Toast.LENGTH_LONG);
+            }
+        });
 
-                        youTubePlayer.cueVideo(ytLinkParser(funnyvid));
-                    }
 
-                    @Override
-                    public void onInitializationFailure(YouTubePlayer.Provider provider,
-                                                        YouTubeInitializationResult youTubeInitializationResult) {
-                        Log.d("FAIL", youTubeInitializationResult.toString());
-                    }
-                });
+
 
     }
 
