@@ -76,7 +76,41 @@ public class ProfileFragment extends YouTubePlayerSupportFragmentX {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        String funnyvid = "https://youtu.be/dQw4w9WgXcQ";
+
+        YouTubePlayerSupportFragmentX ytvid = YouTubePlayerSupportFragmentX.newInstance();
+
+        FragmentManager fragmentManager = this.getChildFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.myVideo, ytvid).commit();
+        ytvid.initialize("AIzaSyBq3HdLDiOXupsQ-dMvzPTNS1MJB2kKlqc",
+                new YouTubePlayer.OnInitializedListener() {
+                    @Override
+                    public void onInitializationSuccess(YouTubePlayer.Provider provider,
+                                                        YouTubePlayer youTubePlayer, boolean b) {
+
+                        youTubePlayer.cueVideo(ytLinkParser(funnyvid));
+                    }
+
+                    @Override
+                    public void onInitializationFailure(YouTubePlayer.Provider provider,
+                                                        YouTubeInitializationResult youTubeInitializationResult) {
+                        Log.d("FAIL", youTubeInitializationResult.toString());
+                    }
+                });
 
     }
-    
+
+    public String ytLinkParser(String url){
+
+        String pattern = "https?:\\/\\/(?:[0-9A-Z-]+\\.)?(?:youtu\\.be\\/|youtube\\.com\\S*[^\\w\\-\\s])([\\w\\-]{11})(?=[^\\w\\-]|$)(?![?=&+%\\w]*(?:['\"][^<>]*>|<\\/a>))[?=&+%\\w]*";
+
+        Pattern compiledPattern = Pattern.compile(pattern,
+                Pattern.CASE_INSENSITIVE);
+        Matcher matcher = compiledPattern.matcher(url);
+        if (matcher.find()) {
+            return matcher.group(1);
+        }
+        return null;
+    }
+
 }
