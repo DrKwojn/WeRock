@@ -21,6 +21,7 @@ import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerFragment;
 
 import com.google.android.youtube.player.YouTubePlayerSupportFragment;
+import com.google.android.youtube.player.YouTubePlayerSupportFragmentX;
 import com.google.android.youtube.player.YouTubePlayerView;
 
 import org.w3c.dom.Text;
@@ -38,7 +39,7 @@ import fri.werock.api.WeRockApiCallback;
 import fri.werock.api.WeRockApiError;
 import fri.werock.models.User;
 
-public class ProfileFragment extends Fragment {
+public class ProfileFragment extends YouTubePlayerSupportFragmentX {
     private int id;
 
     private TextView name;
@@ -66,7 +67,28 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        YouTubePlayerView youTubePlayerView = getActivity().findViewById(R.id.myVideo);
+
+        String funnyvid = "https://youtu.be/dQw4w9WgXcQ";
+        //API key needs to be stored elsewhere
+        youTubePlayerView.initialize("API KEY",
+                new YouTubePlayer.OnInitializedListener() {
+                    @Override
+                    public void onInitializationSuccess(YouTubePlayer.Provider provider,
+                                                        YouTubePlayer youTubePlayer, boolean b) {
+
+                        youTubePlayer.cueVideo(ytLinkParser(funnyvid));
+                    }
+
+                    @Override
+                    public void onInitializationFailure(YouTubePlayer.Provider provider,
+                                                        YouTubeInitializationResult youTubeInitializationResult) {
+                        Log.d("FAIL", youTubeInitializationResult.toString());
+                    }
+                });
         return inflater.inflate(R.layout.fragment_profile, container, false);
+
+
     }
 
 
