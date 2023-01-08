@@ -105,8 +105,6 @@ public class EditProfileFragment extends Fragment {
             return;
 
         }
-        final File[] audio1 = new File[1];
-        final File[] audio2 = new File[1];
 
         name =  this.getActivity().findViewById(R.id.edit_user_input);
         addMedia = this.getActivity().findViewById(R.id.addMedia);
@@ -143,30 +141,28 @@ public class EditProfileFragment extends Fragment {
         WeRockApi.fetch(this.getAuthActivity().getWeRockApi().downloadSound(1), new WeRockApiCallback<ResponseBody>() {
             @Override
             public void onResponse(ResponseBody body) throws IOException {
+                if(body == null) {
+                    return;
+                }
+
                 final InputStream input = body.byteStream();
-                audio1[0] = FileUtil.fileConvert(input, "Audio1", ".mp3", ".mp3");
-                Log.d("Tost", audio1[0].getName());
-                Toast.makeText(EditProfileFragment.this.getActivity(), "We downloaded the image :)", Toast.LENGTH_LONG).show();
 
-            }
+                File file = FileUtil.fileConvert(input, "Audio1", ".mp3", ".mp3");
+                FileInputStream fileInputStream = null;
+                try {
+                    fileInputStream = new FileInputStream(file);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
 
-            @Override
-            public void onError(WeRockApiError error) {
-                Toast.makeText(EditProfileFragment.this.getActivity(), "Error :(", Toast.LENGTH_LONG).show();
-            }
-
-            @Override
-            public void onFailure() {
-                Toast.makeText(EditProfileFragment.this.getActivity(), "Failure :(", Toast.LENGTH_LONG).show();
-            }
-        });
-
-        WeRockApi.fetch(this.getAuthActivity().getWeRockApi().downloadSound(2), new WeRockApiCallback<ResponseBody>() {
-            @Override
-            public void onResponse(ResponseBody body) throws IOException {
-                final InputStream input = body.byteStream();
-                audio2[0] = readIs(input);
-                Toast.makeText(EditProfileFragment.this.getActivity(), "We downloaded the image :)", Toast.LENGTH_LONG).show();
+                MediaPlayer mediaPlayer = new MediaPlayer();
+                mediaPlayer.setDataSource(fileInputStream.getFD());
+                if (mediaPlayer.getDuration() < 60000) {
+                    View player = getLayoutInflater().inflate(R.layout.audio_player_layout, null);
+                    audioPlayer.addPlayer(player, mediaPlayer, layout);
+                } else {
+                    Toast.makeText(EditProfileFragment.this.getActivity(), "Sound clip to long", Toast.LENGTH_LONG).show();
+                }
             }
 
             @Override
@@ -183,6 +179,10 @@ public class EditProfileFragment extends Fragment {
         WeRockApi.fetch(this.getAuthActivity().getWeRockApi().downloadImage(), new WeRockApiCallback<ResponseBody>() {
             @Override
             public void onResponse(ResponseBody body) {
+                if(body == null) {
+                    return;
+                }
+
                 final Bitmap selectedImage = BitmapFactory.decodeStream(body.byteStream());
                 myProfileImg.setImageBitmap(selectedImage);
                 Toast.makeText(EditProfileFragment.this.getActivity(), "We downloaded the image :)", Toast.LENGTH_LONG).show();
@@ -198,30 +198,6 @@ public class EditProfileFragment extends Fragment {
                 Toast.makeText(EditProfileFragment.this.getActivity(), "Failure :(", Toast.LENGTH_LONG).show();
             }
         });
-
-        /*
-        if (audio1[0]!=null){
-            FileInputStream inputStream = null;
-            try {
-                inputStream = new FileInputStream(audio1[0]);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-            try {
-                mediaPlayer.setDataSource(inputStream.getFD());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            MediaPlayer mediaPlayer = MediaPlayer.create(this.getActivity().getApplicationContext());
-            if (mediaPlayer.getDuration() < 60000) {
-                View player = getLayoutInflater().inflate(R.layout.audio_player_layout, null);
-                audioPlayer.addPlayer(player, mediaPlayer, layout);
-
-            } else {
-                showDialog();
-            }
-        }
-        */
 
         aboutMe.setOnFocusChangeListener((v, b) -> {
             if(b) {
@@ -298,22 +274,39 @@ public class EditProfileFragment extends Fragment {
     }
 
     public void onActivityResult ( int requestCode, int resultCode, @Nullable Intent data){
-
         super.onActivityResult(requestCode, resultCode, data);
-        Log.d("CODE", String.valueOf(requestCode));
         if(requestCode == PICK_AUDIO) {
             if (resultCode == RESULT_OK) {
-                // Audio is Picked in format of URI
-                AudioUri = data.getData();
-                MediaPlayer mediaPlayer = MediaPlayer.create(this.getActivity().getApplicationContext(), AudioUri);
-                if (mediaPlayer.getDuration() < 60000) {
-                    View player = getLayoutInflater().inflate(R.layout.audio_player_layout, null);
-                    audioPlayer.addPlayer(player, mediaPlayer, layout);
+                try {
+                    final Uri audioUri = data.getData();
+                    InputStream audioStream = this.getActivity().getContentResolver().openInputStream(audioUri);
+                    MultipartBody.Part part = FileUtil.fileRequestBody(audioStream, "file", ".wav", "audio/*");
+                    WeRockApi.fetch(this.getAuthActivity().getWeRockApi().uploadSound(1, part), new WeRockApiCallback<Void>() {
+                        @Override
+                        public void onResponse(Void v) {
+                        }
 
-                } else {
-                    showDialog();
+                        @Override
+                        public void onError(WeRockApiError error) {
+                            Toast.makeText(EditProfileFragment.this.getActivity(), "Error :(", Toast.LENGTH_LONG).show();
+                        }
+
+                        @Override
+                        public void onFailure() {
+                            Toast.makeText(EditProfileFragment.this.getActivity(), "Failure :(", Toast.LENGTH_LONG).show();
+                        }
+                    });
+
+                    MediaPlayer mediaPlayer = MediaPlayer.create(this.getActivity().getApplicationContext(), audioUri);
+                    if (mediaPlayer.getDuration() < 60000) {
+                        View player = getLayoutInflater().inflate(R.layout.audio_player_layout, null);
+                        audioPlayer.addPlayer(player, mediaPlayer, layout);
+                    } else {
+                        Toast.makeText(EditProfileFragment.this.getActivity(), "Sound clip to long", Toast.LENGTH_LONG).show();
+                    }
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
                 }
-
             }
         }
         if(requestCode == PICK_IMAGE) {
@@ -327,7 +320,6 @@ public class EditProfileFragment extends Fragment {
                     WeRockApi.fetch(this.getAuthActivity().getWeRockApi().uploadImage(part), new WeRockApiCallback<Void>() {
                         @Override
                         public void onResponse(Void v) {
-                            Toast.makeText(EditProfileFragment.this.getActivity(), "We uploaded the image :)", Toast.LENGTH_LONG).show();
                         }
 
                         @Override
