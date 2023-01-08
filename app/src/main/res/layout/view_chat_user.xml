@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:background="#ddd"
+    android:background="#ffffff"
+    android:layout_margin="8dp"
     >
 
     <TextView
@@ -14,7 +15,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:textColor="@color/black"
+        android:padding="8dp"
+        android:textColor="@color/white"
+        android:background="@drawable/chat_msg2"
         android:text="Example Example"/>
 
 </LinearLayout>

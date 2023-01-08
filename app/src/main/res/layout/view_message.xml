@@ -25,8 +25,9 @@
             android:layout_marginStart="0dp"
             android:layout_marginTop="0dp"
             android:text="Example"
-            android:elevation="12dp"
-            android:padding="8dp"
+            android:elevation="8dp"
+            android:padding="12dp"
+            android:paddingTop="0dp"
             android:textColor="@color/white"
             android:textSize="16sp" />
 
@@ -49,9 +50,11 @@
             android:layout_margin="12dp"
             android:layout_marginTop="0dp"
             android:layout_marginStart="0dp"
-            android:elevation="12dp"
+            android:elevation="8dp"
+
             android:textColor="@color/white"
-            android:padding="8dp"
+            android:padding="12dp"
+            android:paddingTop="0dp"
             android:background="@drawable/chat_msg"
             android:text="Example"/>
 

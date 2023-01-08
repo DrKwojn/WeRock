@@ -74,6 +74,9 @@ public class ChatFragment extends Fragment {
         sendButton = view.findViewById(R.id.send_button);
         sendButton.setOnClickListener(v -> {
             Message message = new Message();
+            if(inputText.getText().toString().trim().equals("")){
+                return;
+            }
             message.setText(inputText.getText().toString());
             inputText.setText("");
             WeRockApi.fetch(((AuthenticatedActivity)this.getActivity()).getWeRockApi().addMessage(this.id, message), new WeRockApiCallback<Void>() {
