@@ -15,6 +15,8 @@ import android.widget.Button;
 
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
+import com.google.android.youtube.player.YouTubePlayerFragment;
+import com.google.android.youtube.player.YouTubePlayerSupportFragment;
 import com.google.android.youtube.player.YouTubePlayerView;
 
 import java.util.regex.Matcher;
@@ -22,7 +24,7 @@ import java.util.regex.Pattern;
 
 import fri.werock.R;
 
-public class MyProfileFragment extends Fragment {
+public class MyProfileFragment extends YouTubePlayerFragment {
     private Button editProfile;
 
     public MyProfileFragment() {
@@ -78,8 +80,8 @@ public class MyProfileFragment extends Fragment {
         });
 
 
-
     }
+
 
 
     public String ytLinkParser(String url){

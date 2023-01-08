@@ -9,15 +9,25 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.android.youtube.player.YouTubeInitializationResult;
+import com.google.android.youtube.player.YouTubePlayer;
+import com.google.android.youtube.player.YouTubePlayerFragment;
+
+import com.google.android.youtube.player.YouTubePlayerSupportFragment;
+import com.google.android.youtube.player.YouTubePlayerView;
+
 import org.w3c.dom.Text;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import fri.werock.R;
 import fri.werock.activities.AuthenticatedActivity;
@@ -32,7 +42,6 @@ public class ProfileFragment extends Fragment {
     private int id;
 
     private TextView name;
-
     public ProfileFragment() {}
 
     public static ProfileFragment newInstance(int id) {
@@ -60,33 +69,17 @@ public class ProfileFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_profile, container, false);
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
 
-        AuthenticatedActivity activity = ((AuthenticatedActivity)this.getActivity());
-        if(activity == null) {
-            //TODO: This is an error ?
-            return;
+    public String ytLinkParser(String url){
+
+        String pattern = "https?:\\/\\/(?:[0-9A-Z-]+\\.)?(?:youtu\\.be\\/|youtube\\.com\\S*[^\\w\\-\\s])([\\w\\-]{11})(?=[^\\w\\-]|$)(?![?=&+%\\w]*(?:['\"][^<>]*>|<\\/a>))[?=&+%\\w]*";
+
+        Pattern compiledPattern = Pattern.compile(pattern,
+                Pattern.CASE_INSENSITIVE);
+        Matcher matcher = compiledPattern.matcher(url);
+        if (matcher.find()) {
+            return matcher.group(1);
         }
-
-        this.name = this.getActivity().findViewById(R.id.name);
-
-        WeRockApi.fetch(((AuthenticatedActivity)this.getActivity()).getWeRockApi().getUser(id), new WeRockApiCallback<User>() {
-            @Override
-            public void onResponse(User user) {
-                ProfileFragment.this.name.setText(user.getUsername());
-            }
-
-            @Override
-            public void onError(WeRockApiError error) {
-
-            }
-
-            @Override
-            public void onFailure() {
-
-            }
-        });
+        return null;
     }
 }
