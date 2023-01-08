@@ -29,6 +29,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +39,14 @@ import java.util.regex.Pattern;
 import fri.werock.R;
 import fri.werock.activities.AuthenticatedActivity;
 import fri.werock.activities.LoginActivity;
+import fri.werock.api.WeRockApi;
+import fri.werock.api.WeRockApiCallback;
+import fri.werock.api.WeRockApiError;
+import fri.werock.models.User;
 import fri.werock.utils.AudioPlayer;
+import fri.werock.utils.FileUtil;
+import okhttp3.MultipartBody;
+import okhttp3.ResponseBody;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -85,8 +93,6 @@ public class EditProfileFragment extends Fragment {
             return;
         }
 
-        super.onCreate(savedInstanceState);
-
         addMedia = this.getActivity().findViewById(R.id.addMedia);
         editPicture = this.getActivity().findViewById(R.id.edit_profile_pic);
         layout = this.getActivity().findViewById(R.id.audioContainer);
@@ -96,7 +102,24 @@ public class EditProfileFragment extends Fragment {
         myProfileImg = this.getActivity().findViewById(R.id.myProfileImg);
         editLink = this.getActivity().findViewById(R.id.videoLink);
 
+        WeRockApi.fetch(this.getAuthActivity().getWeRockApi().downloadImage(), new WeRockApiCallback<ResponseBody>() {
+            @Override
+            public void onResponse(ResponseBody body) {
+                final Bitmap selectedImage = BitmapFactory.decodeStream(body.byteStream());
+                myProfileImg.setImageBitmap(selectedImage);
+                Toast.makeText(EditProfileFragment.this.getActivity(), "We downloaded the image :)", Toast.LENGTH_LONG).show();
+            }
 
+            @Override
+            public void onError(WeRockApiError error) {
+                Toast.makeText(EditProfileFragment.this.getActivity(), "Error :(", Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onFailure() {
+                Toast.makeText(EditProfileFragment.this.getActivity(), "Failure :(", Toast.LENGTH_LONG).show();
+            }
+        });
 
         aboutMe.setOnFocusChangeListener((v, b) -> {
             if(b) {
@@ -113,7 +136,6 @@ public class EditProfileFragment extends Fragment {
                 aboutMe.setLayoutParams(params);
             }
         });
-
 
         editLink.addTextChangedListener(new TextWatcher() {
             @Override
@@ -136,7 +158,6 @@ public class EditProfileFragment extends Fragment {
             }
         });
 
-
         editTags.setOnFocusChangeListener((v, b) -> {
             if(!b){
                 List<String> tags = parseTags(editTags.getText().toString());
@@ -155,9 +176,6 @@ public class EditProfileFragment extends Fragment {
 
         });
 
-
-
-
         addMedia.setOnClickListener(v-> {
             if(layout.getChildCount()<2) {
                 Intent audio = new Intent();
@@ -169,12 +187,6 @@ public class EditProfileFragment extends Fragment {
                 Toast.makeText(this.getActivity(), "Max number of demos reached", Toast.LENGTH_LONG).show();
             }
         });
-
-
-
-
-
-
 
         this.logout = this.getActivity().findViewById(R.id.logout);
         logout.setOnClickListener(buttonView -> {
@@ -207,7 +219,27 @@ public class EditProfileFragment extends Fragment {
             if (resultCode == RESULT_OK) {
                 try {
                     final Uri imageUri = data.getData();
-                    final InputStream imageStream = this.getActivity().getContentResolver().openInputStream(imageUri);
+                    InputStream imageStream = this.getActivity().getContentResolver().openInputStream(imageUri);
+                    MultipartBody.Part part = FileUtil.fileRequestBody(imageStream, "file", ".jpg", "image/*");
+
+                    WeRockApi.fetch(this.getAuthActivity().getWeRockApi().uploadImage(part), new WeRockApiCallback<Void>() {
+                        @Override
+                        public void onResponse(Void v) {
+                            Toast.makeText(EditProfileFragment.this.getActivity(), "We uploaded the image :)", Toast.LENGTH_LONG).show();
+                        }
+
+                        @Override
+                        public void onError(WeRockApiError error) {
+                            Toast.makeText(EditProfileFragment.this.getActivity(), "Error :(", Toast.LENGTH_LONG).show();
+                        }
+
+                        @Override
+                        public void onFailure() {
+                            Toast.makeText(EditProfileFragment.this.getActivity(), "Failure :(", Toast.LENGTH_LONG).show();
+                        }
+                    });
+
+                    imageStream = this.getActivity().getContentResolver().openInputStream(imageUri);
                     final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
                     myProfileImg.setImageBitmap(selectedImage);
                 } catch (FileNotFoundException e) {
@@ -222,6 +254,9 @@ public class EditProfileFragment extends Fragment {
 
     }
 
+    public AuthenticatedActivity getAuthActivity() {
+        return ((AuthenticatedActivity)this.getActivity());
+    }
 
     void showDialog(){
         final Dialog dialog = new Dialog(this.getActivity());

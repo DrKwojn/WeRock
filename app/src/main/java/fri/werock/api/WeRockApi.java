@@ -7,14 +7,20 @@ import androidx.annotation.NonNull;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import fri.werock.R;
 import fri.werock.models.AuthenticationToken;
 import fri.werock.models.User;
 import fri.werock.models.UserAccount;
+import okhttp3.ConnectionPool;
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
+import okhttp3.Protocol;
 import okhttp3.Request;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -24,9 +30,12 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
+import retrofit2.http.Streaming;
 
 public interface WeRockApi {
     static WeRockApi create(Context context) {
@@ -105,6 +114,13 @@ public interface WeRockApi {
     @GET("user/{id}")
     Call<User> getUser(@Path("id") int id);
 
-//    @PUT("user/{id}")
-//    Call<Void> updateUser(@Path("id") int id, @Body User user);
+    @PUT("user/{id}")
+    Call<Void> updateUser(@Path("id") int id, @Body User user);
+
+    @GET("image/download")
+    Call<ResponseBody> downloadImage();
+
+    @Multipart
+    @POST("image/upload")
+    Call<Void> uploadImage(@Part MultipartBody.Part image);
 }
