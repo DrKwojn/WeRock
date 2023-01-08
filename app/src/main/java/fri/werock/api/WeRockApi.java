@@ -111,11 +111,14 @@ public interface WeRockApi {
     @GET("user/list")
     Call<List<User>> getUsers();
 
+    @GET("user/current")
+    Call<User> getUser();
+
     @GET("user/{id}")
     Call<User> getUser(@Path("id") int id);
 
     @PUT("user/{id}")
-    Call<Void> updateUser(@Path("id") int id, @Body User user);
+    Call<Void> updateUser(@Body User user);
 
     @GET("image/download")
     Call<ResponseBody> downloadImage();
