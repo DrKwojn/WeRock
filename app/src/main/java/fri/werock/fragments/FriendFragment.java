@@ -56,6 +56,10 @@ public class FriendFragment extends Fragment {
         WeRockApi.fetch(((AuthenticatedActivity)this.getActivity()).getWeRockApi().getChatList(), new WeRockApiCallback<List<User>>() {
             @Override
             public void onResponse(List<User> users) {
+                if(users == null) {
+                    return;
+                }
+
                 ChatUserAdapter adapter = new ChatUserAdapter(FriendFragment.this.getActivity(), users);
                 adapter.setOnUserClickListener(id -> {
                     ChatFragment chatFragment = ChatFragment.newInstance(id);

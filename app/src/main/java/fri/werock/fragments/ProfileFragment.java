@@ -79,11 +79,10 @@ public class ProfileFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         chat = getActivity().findViewById(R.id.start_chat);
 
-        chat.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                
-            }
+        chat.setOnClickListener(v -> {
+            ChatFragment chatFragment = ChatFragment.newInstance(ProfileFragment.this.id);
+            FragmentManager fragmentManager = ProfileFragment.this.getActivity().getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.fragment_container, chatFragment).commit();
         });
 
         String funnyvid = "https://youtu.be/dQw4w9WgXcQ";
