@@ -108,6 +108,10 @@ public class ChatFragment extends Fragment {
         WeRockApi.fetch(((AuthenticatedActivity)this.getActivity()).getWeRockApi().getMessages(this.id), new WeRockApiCallback<List<Message>>() {
             @Override
             public void onResponse(List<Message> messages) {
+                if(messages == null) {
+                    return;
+                }
+
                 MessageAdapter adapter = new MessageAdapter(ChatFragment.this.getActivity(), ChatFragment.this.id, messages);
                 recyclerView.setAdapter(adapter);
                 if(finalUpdateScroll) {
