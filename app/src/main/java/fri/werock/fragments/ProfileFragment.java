@@ -43,6 +43,7 @@ public class ProfileFragment extends Fragment {
     private int id;
 
     private TextView name;
+    private Button chat;
     public ProfileFragment() {}
 
     public static ProfileFragment newInstance(int id) {
@@ -76,6 +77,15 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        chat = getActivity().findViewById(R.id.start_chat);
+
+        chat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                
+            }
+        });
+
         String funnyvid = "https://youtu.be/dQw4w9WgXcQ";
 
         YouTubePlayerSupportFragmentX ytvid = YouTubePlayerSupportFragmentX.newInstance();
