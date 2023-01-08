@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
@@ -43,6 +44,9 @@ public class ProfileFragment extends Fragment {
     private int id;
 
     private TextView name;
+    private TextView description;
+    private TextView tags;
+
     private Button chat;
     public ProfileFragment() {}
 
@@ -77,6 +81,30 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        name = getActivity().findViewById(R.id.name);
+        description = getActivity().findViewById(R.id.description);
+        tags = getActivity().findViewById(R.id.tags);
+
+        WeRockApi.fetch(((AuthenticatedActivity)this.getActivity()).getWeRockApi().getUser(id), new WeRockApiCallback<User>() {
+            @Override
+            public void onResponse(User user) {
+                name.setText(user.getFullName() != null ? user.getFullName() : user.getUsername());
+                description.setText(user.getDescription() != null ? user.getDescription() : "User has no description");
+                tags.setText(user.getTags());
+            }
+
+            @Override
+            public void onError(WeRockApiError error) {
+                Toast.makeText(ProfileFragment.this.getActivity(), "Error", Toast.LENGTH_LONG);
+            }
+
+            @Override
+            public void onFailure() {
+                Toast.makeText(ProfileFragment.this.getActivity(), "Failed", Toast.LENGTH_LONG);
+            }
+        });
+
         chat = getActivity().findViewById(R.id.start_chat);
 
         chat.setOnClickListener(v -> {
