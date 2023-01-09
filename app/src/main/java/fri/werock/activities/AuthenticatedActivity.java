@@ -53,23 +53,7 @@ public class AuthenticatedActivity extends AppCompatActivity {
         this.weRockApi = WeRockApi.create(this, token);
         WeRockApi.fetch(this.getWeRockApi().validate(), new WeRockApiCallback<Void>() {
             @Override
-            public void onResponse(Void v) {
-                AuthenticatedActivity activity = AuthenticatedActivity.this;
-                activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, exploreFragment).commit();
-
-                activity.navigationView = findViewById(R.id.bottom_navigation);
-                activity.navigationView.setOnItemSelectedListener(item -> {
-                    if(item.getItemId() == R.id.action_explore) {
-                        activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, exploreFragment).commit();
-                    }else if(item.getItemId() == R.id.action_chat) {
-                        activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, friendFragment).commit();
-                    }else if(item.getItemId() == R.id.action_profile) {
-                        activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, editProfileFragment).commit();
-                    }
-
-                    return false;
-                });
-            }
+            public void onResponse(Void v) {}
 
             @Override
             public void onError(WeRockApiError error) {
@@ -82,6 +66,22 @@ public class AuthenticatedActivity extends AppCompatActivity {
                 AuthenticatedActivity.this.userTokenStorage.clear();
                 startActivity(new Intent(AuthenticatedActivity.this.getApplicationContext(), LoginActivity.class));
             }
+        });
+
+        AuthenticatedActivity activity = AuthenticatedActivity.this;
+        activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, exploreFragment).commit();
+
+        activity.navigationView = findViewById(R.id.bottom_navigation);
+        activity.navigationView.setOnItemSelectedListener(item -> {
+            if(item.getItemId() == R.id.action_explore) {
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, exploreFragment).commit();
+            }else if(item.getItemId() == R.id.action_chat) {
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, friendFragment).commit();
+            }else if(item.getItemId() == R.id.action_profile) {
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, editProfileFragment).commit();
+            }
+
+            return false;
         });
     }
 
