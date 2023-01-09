@@ -89,9 +89,9 @@ public class ProfileFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        name = getActivity().findViewById(R.id.name);
-        description = getActivity().findViewById(R.id.description);
-        tags = getActivity().findViewById(R.id.tags);
+        name = getActivity().findViewById(R.id.profile_name);
+        description = getActivity().findViewById(R.id.profile_description);
+        tags = getActivity().findViewById(R.id.profile_tags);
         image = getActivity().findViewById(R.id.myProfilePic);
         video = getActivity().findViewById(R.id.myVideo);
 
@@ -124,7 +124,7 @@ public class ProfileFragment extends Fragment {
                     }
                 });
 
-                if(!user.getYoutubeKey().equals("")) {
+                if(user.getYoutubeKey() != null && !user.getYoutubeKey().equals("")) {
                     String key;
                     if (user.getYoutubeKey() != null) {
                         key = user.getYoutubeKey();

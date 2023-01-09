@@ -46,7 +46,7 @@ public interface WeRockApi {
     static WeRockApi create(Context context, String accessToken) {
         String serverUrl = context.getString(R.string.server_url);
         Retrofit.Builder retrofitBuilder = new Retrofit.Builder();
-        if(accessToken != null) {
+        if (accessToken != null) {
             OkHttpClient client = new OkHttpClient.Builder().addInterceptor(chain -> {
                 Request.Builder requestBuilder = chain.request().newBuilder();
                 requestBuilder.addHeader("Authorization", "Bearer " + accessToken);
@@ -66,7 +66,7 @@ public interface WeRockApi {
         call.enqueue(new Callback<T>() {
             @Override
             public void onResponse(@NonNull Call<T> call, @NonNull Response<T> response) {
-                if(response.isSuccessful()) {
+                if (response.isSuccessful()) {
                     try {
                         callback.onResponse(response.body());
                     } catch (IOException e) {
@@ -74,7 +74,7 @@ public interface WeRockApi {
                     }
                 } else {
                     ResponseBody responseBody = response.errorBody();
-                    if(responseBody == null) {
+                    if (responseBody == null) {
                         callback.onError(WeRockApiError.BODY_MISSING_ERROR);
                         return;
                     }
@@ -82,9 +82,10 @@ public interface WeRockApi {
                     String errorJson = null;
                     try {
                         errorJson = responseBody.string();
-                    } catch (IOException ignored) {}
+                    } catch (IOException ignored) {
+                    }
 
-                    if(errorJson == null || errorJson.isEmpty()) {
+                    if (errorJson == null || errorJson.isEmpty()) {
                         callback.onError(WeRockApiError.BODY_MISSING_ERROR);
                         return;
                     }
@@ -112,6 +113,9 @@ public interface WeRockApi {
 
     @POST("login")
     Call<AuthenticationToken> login(@Body UserAccount userAccount);
+
+    @POST("validate")
+    Call<Void> validate();
 
     @GET("user/list")
     Call<List<User>> getUsers();
