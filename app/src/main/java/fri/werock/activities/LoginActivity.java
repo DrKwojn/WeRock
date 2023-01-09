@@ -66,8 +66,6 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
                 public void onError(WeRockApiError error) {
                     //If username not found
-                    Toast.makeText(LoginActivity.this,error.getMessage(), Toast.LENGTH_SHORT).show();
-                    Toast.makeText(LoginActivity.this,String.valueOf(error.getId()), Toast.LENGTH_SHORT).show();
                     if(error.getId()==31) {
                         usernameErr.setText("Incorrect username or password");
                         passwordErr.setText("Incorrect username or password");

@@ -82,7 +82,7 @@
             android:textColor="@color/black"
             android:autofillHints="username"
             android:background="@drawable/custom_layout"
-            android:drawableStart="@drawable/user"
+            android:drawableStart="@drawable/user_icon"
             android:drawablePadding="12dp"
             android:elevation="8dp"
             android:ems="10"
