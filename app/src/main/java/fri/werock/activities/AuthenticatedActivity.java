@@ -43,7 +43,12 @@ public class AuthenticatedActivity extends AppCompatActivity {
 
         String token = this.userTokenStorage.fetch();
         if(token == null){
-            startActivity(new Intent(this.getApplicationContext(), LoginActivity.class));
+            AuthenticatedActivity.this.userTokenStorage.clear();
+            Intent intent = new Intent(AuthenticatedActivity.this.getApplicationContext(), LoginActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+            startActivity(intent);
+            AuthenticatedActivity.this.finish();
+            return;
         }
 
         this.exploreFragment = ExploreFragment.newInstance();
