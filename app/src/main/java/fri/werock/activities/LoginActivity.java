@@ -57,7 +57,9 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(AuthenticationToken authenticationToken) {
                     userTokenStorage.store(authenticationToken.getAccessToken());
-                    startActivity(new Intent(getApplicationContext(), AuthenticatedActivity.class));
+                    Intent intent = new Intent(getApplicationContext(), AuthenticatedActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                    startActivity(intent);
                     LoginActivity.this.finish();
                 }
 
@@ -96,7 +98,10 @@ public class LoginActivity extends AppCompatActivity {
 
         this.buttonRegister = this.findViewById(R.id.register_button);
         this.buttonRegister.setOnClickListener(view -> {
-            startActivity(new Intent(this.getApplicationContext(), RegisterActivity.class));
+            Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+            startActivity(intent);
+            LoginActivity.this.finish();
         });
     }
     void showDialog(){

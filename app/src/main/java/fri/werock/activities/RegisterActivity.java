@@ -108,7 +108,9 @@ public class RegisterActivity extends AppCompatActivity {
             WeRockApi.fetch(weRockApi.register(userAccount), new WeRockApiCallback<Void>() {
                 @Override
                 public void onResponse(Void unused) {
-                    startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                    Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                    startActivity(intent);
                     RegisterActivity.this.finish();
                 }
 

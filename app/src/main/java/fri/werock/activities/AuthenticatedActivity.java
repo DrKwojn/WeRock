@@ -58,13 +58,19 @@ public class AuthenticatedActivity extends AppCompatActivity {
             @Override
             public void onError(WeRockApiError error) {
                 AuthenticatedActivity.this.userTokenStorage.clear();
-                startActivity(new Intent(AuthenticatedActivity.this.getApplicationContext(), LoginActivity.class));
+                Intent intent = new Intent(AuthenticatedActivity.this.getApplicationContext(), LoginActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                startActivity(intent);
+                AuthenticatedActivity.this.finish();
             }
 
             @Override
             public void onFailure() {
                 AuthenticatedActivity.this.userTokenStorage.clear();
-                startActivity(new Intent(AuthenticatedActivity.this.getApplicationContext(), LoginActivity.class));
+                Intent intent = new Intent(AuthenticatedActivity.this.getApplicationContext(), LoginActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                startActivity(intent);
+                AuthenticatedActivity.this.finish();
             }
         });
 
