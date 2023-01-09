@@ -92,7 +92,7 @@ public class RegisterActivity extends AppCompatActivity {
            }else{
                passConfErr.setText("");
                if(!matchesPattern(password, p)) {
-                   passwordErr.setText("6-20 characters required!");
+                   passwordErr.setText("6-20 characters required (alphanumeric)!");
                    return;
                 }else{
                   passwordErr.setText("");
