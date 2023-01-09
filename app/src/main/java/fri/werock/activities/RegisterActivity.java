@@ -10,6 +10,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -33,14 +34,12 @@ public class RegisterActivity extends AppCompatActivity {
     private TextView passConfErr;
 
     private TextView testText;
-    public String mail = "Mail";
-    public String user = "User";
 
     private Button buttonRegister;
 
 
 
-    private String pattern = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{8,20}$";
+    private String pattern = "^(?=.*[0-9])(?=.*[a-zA-Z]).{6,20}$";
     private Pattern p = Pattern.compile(pattern);
 
     private static boolean matchesPattern(String pass, Pattern p) {
@@ -86,37 +85,25 @@ public class RegisterActivity extends AppCompatActivity {
         this.buttonRegister.setOnClickListener(view -> {
 
             String password = this.editPassword.getText().toString().trim();
-//            if(!password.equals(this.editRetryPassword.getText().toString().trim())){
-//                passConfErr.setText("Passwords must match!");
-//                return;
-//
-//            }else{
-//                passConfErr.setText("");
-//                if(!matchesPattern(password, p)) {
-//                    passwordErr.setText("8 characters (1-9, A-Za-z and special) required!");
-//                    return;
-//                }else{
-//                    passwordErr.setText("");
-//                }
-//            }
+            if(!password.equals(this.editRetryPassword.getText().toString().trim())){
+                passConfErr.setText("Passwords must match!");
+                return;
+
+           }else{
+               passConfErr.setText("");
+               if(!matchesPattern(password, p)) {
+                   passwordErr.setText("6-20 characters required!");
+                   return;
+                }else{
+                  passwordErr.setText("");
+              }
+         }
+
 
             UserAccount userAccount = new UserAccount();
             userAccount.setUsername(this.editUsername.getText().toString().trim());
             userAccount.setEmail(this.editEmail.getText().toString().trim());
             userAccount.setPassword(password);
-
-//            if(userAccount.getEmail().equals(mail)){
-//                emailErr.setText("E-mail already exists");
-//                return;
-//            }else{
-//                emailErr.setText("");
-//            }
-//            if(userAccount.getUsername().equals(user)){
-//                usernameErr.setText("Username already exists");
-//                return;
-//            }else{
-//                usernameErr.setText("");
-//            }
 
             WeRockApi.fetch(weRockApi.register(userAccount), new WeRockApiCallback<Void>() {
                 @Override
@@ -127,19 +114,19 @@ public class RegisterActivity extends AppCompatActivity {
 
                 @Override
                 public void onError(WeRockApiError error) {
-                    Log.d("Err", error.toString());
-                    //TODO: Response errors
-                    if(userAccount.getEmail().equals(mail)){
-                        emailErr.setText("E-mail already exists");
+                    if(error.getId() == 21){
+                        emailErr.setText("E-mail or username already exists");
                     }else{
                         emailErr.setText("");
                     }
-                    if(userAccount.getUsername().equals(user)){
-                        usernameErr.setText("Username already exists");
+                    if(error.getId() == 21){
+                        usernameErr.setText("Username or e-mail already exists");
+
                     }else{
                         usernameErr.setText("");
                     }
                     if(!matchesPattern(userAccount.getPassword(), p)){
+
                         passwordErr.setText("8 characters (numbers, letters and special) required!");
                     }else {
                         passwordErr.setText("");

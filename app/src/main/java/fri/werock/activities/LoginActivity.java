@@ -10,6 +10,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import fri.werock.R;
 import fri.werock.api.WeRockApi;
@@ -28,8 +29,6 @@ public class LoginActivity extends AppCompatActivity {
 
     private Button buttonLogin;
     private Button buttonRegister;
-    public String user = "User";
-    public String password = "Pass";
 
 
     @Override
@@ -64,17 +63,23 @@ public class LoginActivity extends AppCompatActivity {
 
                 @Override
                 public void onError(WeRockApiError error) {
-
-                    Log.d("MSG", error.toString());
                     //If username not found
-                    if(!userAccount.getUsername().equals(user)) {
-                        usernameErr.setText("Username not found");
-                    }else{
-                        usernameErr.setText("");
+                    Toast.makeText(LoginActivity.this,error.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this,String.valueOf(error.getId()), Toast.LENGTH_SHORT).show();
+                    if(error.getId()==31) {
+                        usernameErr.setText("Incorrect username or password");
+                        passwordErr.setText("Incorrect username or password");
                     }
 
-                    if(!userAccount.getPassword().equals(password)) {
-                        passwordErr.setText("Incorrect password");
+
+                    else if(error.getId()==30){
+                        usernameErr.setText("Missing username or password");
+                        passwordErr.setText("Missing username or password");
+                    }
+
+                    else{
+                        usernameErr.setText("");
+                        passwordErr.setText("");
                     }
 
 

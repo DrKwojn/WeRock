@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.util.List;
@@ -32,7 +33,7 @@ public class ChatFragment extends Fragment {
     private RecyclerView recyclerView;
 
     private EditText inputText;
-    private Button sendButton;
+    private ImageView sendButton;
 
     private static final String ARG_ID = "id";
 

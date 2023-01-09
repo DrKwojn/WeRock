@@ -256,6 +256,7 @@ public class EditProfileFragment extends Fragment {
         logout.setOnClickListener(buttonView -> {
             activity.getUserTokenStorage().clear();
             startActivity(new Intent(activity.getApplicationContext(), LoginActivity.class));
+            this.getActivity().finish();
         });
     }
 
