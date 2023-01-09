@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -51,6 +52,7 @@ public class ProfileFragment extends Fragment {
     private TextView description;
     private TextView tags;
     private ImageView image;
+    private FrameLayout video;
 
     private Button chat;
     public ProfileFragment() {}
@@ -91,12 +93,13 @@ public class ProfileFragment extends Fragment {
         description = getActivity().findViewById(R.id.description);
         tags = getActivity().findViewById(R.id.tags);
         image = getActivity().findViewById(R.id.myProfilePic);
+        video = getActivity().findViewById(R.id.myVideo);
 
         WeRockApi.fetch(((AuthenticatedActivity)this.getActivity()).getWeRockApi().getUser(id), new WeRockApiCallback<User>() {
             @Override
             public void onResponse(User user) {
                 name.setText(user.getFullName() != null ? user.getFullName() : user.getUsername());
-                description.setText(user.getDescription() != null ? user.getDescription() : "User has no description");
+                description.setText(user.getDescription() != null ? user.getDescription() : "");
                 tags.setText(user.getTags());
 
                 WeRockApi.fetch(((AuthenticatedActivity)ProfileFragment.this.getActivity()).getWeRockApi().downloadImage(user.getID()), new WeRockApiCallback<ResponseBody>() {
@@ -121,31 +124,36 @@ public class ProfileFragment extends Fragment {
                     }
                 });
 
-                String key;
-                if(user.getYoutubeKey()!=null){
-                   key = user.getYoutubeKey();
+                if(!user.getYoutubeKey().equals("")) {
+                    String key;
+                    if (user.getYoutubeKey() != null) {
+                        key = user.getYoutubeKey();
+                    } else {
+                        key = "https://youtu.be/dQw4w9WgXcQ";
+                    }
+                    YouTubePlayerSupportFragmentX ytvid = YouTubePlayerSupportFragmentX.newInstance();
+
+                    FragmentManager fragmentManager = ProfileFragment.this.getChildFragmentManager();
+                    fragmentManager.beginTransaction().replace(R.id.myVideo, ytvid).commit();
+                    ytvid.initialize("AIzaSyBq3HdLDiOXupsQ-dMvzPTNS1MJB2kKlqc",
+                            new YouTubePlayer.OnInitializedListener() {
+                                @Override
+                                public void onInitializationSuccess(YouTubePlayer.Provider provider,
+                                                                    YouTubePlayer youTubePlayer, boolean b) {
+
+                                    youTubePlayer.cueVideo(ytLinkParser(key));
+                                }
+
+                                @Override
+                                public void onInitializationFailure(YouTubePlayer.Provider provider,
+                                                                    YouTubeInitializationResult youTubeInitializationResult) {
+                                    Log.d("FAIL", youTubeInitializationResult.toString());
+                                }
+                            });
                 }else{
-                    key = "https://youtu.be/dQw4w9WgXcQ";
+                    video.setVisibility(View.INVISIBLE);
                 }
-                YouTubePlayerSupportFragmentX ytvid = YouTubePlayerSupportFragmentX.newInstance();
 
-                FragmentManager fragmentManager = ProfileFragment.this.getChildFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.myVideo, ytvid).commit();
-                ytvid.initialize("AIzaSyBq3HdLDiOXupsQ-dMvzPTNS1MJB2kKlqc",
-                        new YouTubePlayer.OnInitializedListener() {
-                            @Override
-                            public void onInitializationSuccess(YouTubePlayer.Provider provider,
-                                                                YouTubePlayer youTubePlayer, boolean b) {
-
-                                youTubePlayer.cueVideo(ytLinkParser(key));
-                            }
-
-                            @Override
-                            public void onInitializationFailure(YouTubePlayer.Provider provider,
-                                                                YouTubeInitializationResult youTubeInitializationResult) {
-                                Log.d("FAIL", youTubeInitializationResult.toString());
-                            }
-                        });
             }
 
             @Override

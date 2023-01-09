@@ -3,6 +3,8 @@ package fri.werock.adapters;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,11 +36,15 @@ public class ExploreUserAdapter extends RecyclerView.Adapter<ExploreUserAdapter.
 
     private AuthenticatedActivity activity;
     private List<User> users;
-
+    int height;
+    int width;
     private OnUserClickListener listener;
 
     public ExploreUserAdapter(AuthenticatedActivity activity, List<User> users) {
         this.activity = activity;
+
+        Log.d("width", String.valueOf(width));
+
         this.users = users;
     }
 
@@ -49,13 +55,19 @@ public class ExploreUserAdapter extends RecyclerView.Adapter<ExploreUserAdapter.
     @NonNull
     @Override
     public ExploreUserAdapter.ExploreUserViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
+
         LayoutInflater inflater = LayoutInflater.from(activity);
         View view = inflater.inflate(R.layout.view_explore_user, parent, false);
+
+
+
         return new ExploreUserViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ExploreUserAdapter.ExploreUserViewHolder holder, int position) {
+
         holder.id = users.get(position).getID();
 
         String fullName = users.get(position).getFullName();
@@ -66,13 +78,10 @@ public class ExploreUserAdapter extends RecyclerView.Adapter<ExploreUserAdapter.
         holder.name.setText(fullName);
         if(users.get(position).getDescription() != null) {
             holder.description.setText(users.get(position).getDescription());
-        } else {
-            //TODO: Remove this for testing only
-            holder.description.setText("User has no description set");
         }
 
         if(users.get(position).getTags() != null) {
-            holder.description.setText(users.get(position).getTags());
+            holder.tags.setText(users.get(position).getTags());
         }
 
         WeRockApi.fetch(this.activity.getWeRockApi().downloadImage(users.get(position).getID()), new WeRockApiCallback<ResponseBody>() {
@@ -88,12 +97,10 @@ public class ExploreUserAdapter extends RecyclerView.Adapter<ExploreUserAdapter.
 
             @Override
             public void onError(WeRockApiError error) {
-                Toast.makeText(ExploreUserAdapter.this.activity, "Error :(", Toast.LENGTH_LONG).show();
             }
 
             @Override
             public void onFailure() {
-                Toast.makeText(ExploreUserAdapter.this.activity, "Failure :(", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -123,6 +130,7 @@ public class ExploreUserAdapter extends RecyclerView.Adapter<ExploreUserAdapter.
             this.description = itemView.findViewById(R.id.description);
             this.tags = itemView.findViewById(R.id.tags);
             image = itemView.findViewById(R.id.profile_image);
+
         }
     }
 }
