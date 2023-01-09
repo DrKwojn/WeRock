@@ -115,12 +115,10 @@ public class ProfileFragment extends Fragment {
 
                     @Override
                     public void onError(WeRockApiError error) {
-                        Toast.makeText(((AuthenticatedActivity)ProfileFragment.this.getActivity()), "Error :(", Toast.LENGTH_LONG).show();
                     }
 
                     @Override
                     public void onFailure() {
-                        Toast.makeText(((AuthenticatedActivity)ProfileFragment.this.getActivity()), "Failure :(", Toast.LENGTH_LONG).show();
                     }
                 });
 
